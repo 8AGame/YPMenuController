@@ -1,0 +1,6 @@
+framework module YPMenuController {
+  umbrella header "YPMenuController-umbrella.h"
+
+  export *
+  module * { export * }
+}

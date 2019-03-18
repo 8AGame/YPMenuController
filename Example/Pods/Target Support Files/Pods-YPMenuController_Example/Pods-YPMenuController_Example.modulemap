@@ -1,0 +1,6 @@
+framework module Pods_YPMenuController_Example {
+  umbrella header "Pods-YPMenuController_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

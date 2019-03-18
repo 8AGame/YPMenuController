@@ -1,0 +1,16 @@
+PODS:
+  - YPMenuController (0.1.0)
+
+DEPENDENCIES:
+  - YPMenuController (from `../`)
+
+EXTERNAL SOURCES:
+  YPMenuController:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YPMenuController: fb8fc233d4045acdcc8221db5df06848aee63bf9
+
+PODFILE CHECKSUM: b1143151b7284a13793eefd1170140706494f6d5
+
+COCOAPODS: 1.6.1
