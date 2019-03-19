@@ -10,6 +10,9 @@
 #endif
 #endif
 
+#import "YPCalloutBar.h"
+#import "YPMenuWindow.h"
+#import "YPMenuController.h"
 
 FOUNDATION_EXPORT double YPMenuControllerVersionNumber;
 FOUNDATION_EXPORT const unsigned char YPMenuControllerVersionString[];

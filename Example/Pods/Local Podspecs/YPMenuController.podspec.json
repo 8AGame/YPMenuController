@@ -1,8 +1,8 @@
 {
   "name": "YPMenuController",
   "version": "0.1.0",
-  "summary": "A short description of YPMenuController.",
-  "description": "TODO: Add long description of the pod here.",
+  "summary": "Implement the custom \"UIMenuController\" function.",
+  "description": "Implement the custom \"UIMenuController\" function.",
   "homepage": "https://github.com/liuyaping/YPMenuController",
   "license": {
     "type": "MIT",
@@ -18,5 +18,10 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "YPMenuController/Classes/**/*"
+  "source_files": "YPMenuController/Classes/**/*",
+  "public_header_files": "YPMenuController/Classes/**/*.h",
+  "frameworks": [
+    "UIKit",
+    "Foundation"
+  ]
 }

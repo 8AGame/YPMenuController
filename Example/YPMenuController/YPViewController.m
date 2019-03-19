@@ -7,9 +7,13 @@
 //
 
 #import "YPViewController.h"
+#import "YPTableViewCell.h"
 
-@interface YPViewController ()
 
+@interface YPViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSString *text;
 @end
 
 @implementation YPViewController
@@ -17,13 +21,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    [self.tableView registerNib:[UINib nibWithNibName:@"YPTableViewCell" bundle:nil] forCellReuseIdentifier:@"YPTableViewCell"];
+    self.text = @"wwwwww";
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    YPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YPTableViewCell" forIndexPath:indexPath];
+    [cell.clickBtn setTitle:self.text forState:UIControlStateNormal];
+    return cell;
 }
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"did select");
+    YPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YPTableViewCell" forIndexPath:indexPath];
+    NSLog(@"%@", cell);
+    self.text = @"xxxx";
+    [self.tableView reloadData];
+    
+}
+
+
+
 
 @end
