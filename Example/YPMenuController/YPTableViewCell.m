@@ -34,25 +34,39 @@
 
 - (IBAction)popupMenu:(id)sender {
     [self becomeFirstResponder];
+    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:@"ddd" action:@selector(custome:)];
+    [[UIMenuController sharedMenuController] setMenuItems:@[item]];
     [[UIMenuController sharedMenuController] setTargetRect:self.clickBtn.frame inView:self];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
-    
+
+    YPMenuItem *item1 = [YPMenuItem itemTitleAndImageWithAction:@selector(custome:) title:@"喜欢" image:[UIImage imageNamed:@"like"] itemType:YPMenuItemTitleLeftImageRight];
+    [[YPMenuController sharedMenuController] setMenuItems:@[item1]];
     [[YPMenuController sharedMenuController] setTargetRect:self.clickBtn.frame inView:self];
     [[YPMenuController sharedMenuController] setMenuVisible:YES animated:YES];
-
     
+}
+- (IBAction)action2:(id)sender {
+    [self becomeFirstResponder];
+    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:@"ddd" action:@selector(custome:)];
+    [[UIMenuController sharedMenuController] setMenuItems:@[item]];
+    [[UIMenuController sharedMenuController] setTargetRect:self.clickBtn2.frame inView:self];
+    [[UIMenuController sharedMenuController] setArrowDirection:UIMenuControllerArrowLeft];
+    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+
 }
 
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    if (action == @selector(copy:)) {
+    if (action == @selector(custome:)) {
         return YES;
     }
     return NO;
 }
 
-
+- (void)custome:(id)sender {
+    NSLog(@"custom action");
+}
 
 @end

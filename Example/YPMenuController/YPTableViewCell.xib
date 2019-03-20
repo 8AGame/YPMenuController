@@ -31,16 +31,34 @@
                             <action selector="popupMenu:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EyT-vJ-cXf"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eQ-rk-o1J">
+                        <rect key="frame" x="170" y="90" width="60" height="40"/>
+                        <color key="backgroundColor" red="0.043137254899999998" green="0.80392156859999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="aiA-AL-Qwn"/>
+                            <constraint firstAttribute="width" constant="60" id="uZC-kS-9Vf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="弹Menu">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                        <connections>
+                            <action selector="action2:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Zqt-JZ-4ku"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="9eQ-rk-o1J" firstAttribute="top" secondItem="e0P-n9-rpt" secondAttribute="bottom" constant="20" id="2Hy-yz-fiS"/>
                     <constraint firstAttribute="trailing" secondItem="e0P-n9-rpt" secondAttribute="trailing" constant="20" id="7sE-ji-Lyu"/>
                     <constraint firstItem="e0P-n9-rpt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="VMy-x3-upE"/>
                     <constraint firstItem="e0P-n9-rpt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Va2-ud-UWl"/>
+                    <constraint firstItem="9eQ-rk-o1J" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bPr-zk-GfK"/>
                     <constraint firstItem="e0P-n9-rpt" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="epk-yr-9Sc"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="clickBtn" destination="e0P-n9-rpt" id="Ctv-oD-yzc"/>
+                <outlet property="clickBtn2" destination="9eQ-rk-o1J" id="DaS-X6-AI9"/>
             </connections>
             <point key="canvasLocation" x="-142.40000000000001" y="-31.484257871064472"/>
         </tableViewCell>

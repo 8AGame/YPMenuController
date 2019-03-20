@@ -12,7 +12,9 @@
 
 #import "YPCalloutBar.h"
 #import "YPMenuWindow.h"
+#import "YPMenuItem+Private.h"
 #import "YPMenuController.h"
+#import "YPMenuItem.h"
 
 FOUNDATION_EXPORT double YPMenuControllerVersionNumber;
 FOUNDATION_EXPORT const unsigned char YPMenuControllerVersionString[];

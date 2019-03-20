@@ -6,10 +6,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YPMenuItem+Private.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YPCalloutBar : UIView
+
+@property (nonatomic, assign) CGFloat barHeight;
+
+@property(nonatomic, strong) NSArray<YPMenuItem *> *menuItems;
 
 @end
 

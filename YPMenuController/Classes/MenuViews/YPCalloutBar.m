@@ -20,9 +20,17 @@
     self = [super init];
     if (self) {
         self.backupLayer = [CAShapeLayer layer];
+        [self.layer addSublayer:self.backupLayer];
     }
     return self;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:2];
+    self.backupLayer.path = path.CGPath;
+    self.backupLayer.frame = self.bounds;
+    self.backupLayer.fillColor = [[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor;
+}
 
 @end

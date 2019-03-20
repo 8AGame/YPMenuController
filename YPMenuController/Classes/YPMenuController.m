@@ -32,14 +32,6 @@
     return menuVC;
 }
 
-- (instancetype)init {
-    @throw [NSException
-            exceptionWithName:@"YPMenuController initialize error!"
-            reason:@"Create object must use `+sharedMenuController` method."
-            userInfo:nil];
-    return [self initMenuController];
-}
-
 - (instancetype)initMenuController
 {
     self = [super init];
@@ -58,7 +50,8 @@
         self.menuWindow.hidden = NO;
         CGRect bounds = [UIScreen mainScreen].bounds;
         CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
-        self.calloutBar = [[YPCalloutBar alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(transformRect), CGRectGetWidth(bounds)-20, 60)];
+        self.calloutBar = [[YPCalloutBar alloc] init];
+        self.calloutBar.frame = CGRectMake(10, CGRectGetMaxY(transformRect), CGRectGetWidth(bounds)-20, 60);
         self.calloutBar.backgroundColor = [UIColor whiteColor];
         [self.menuWindow addSubview:self.calloutBar];
     }else{

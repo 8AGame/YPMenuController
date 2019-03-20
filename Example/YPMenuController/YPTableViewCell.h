@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIButton *clickBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *clickBtn2;
 
 @end
 
