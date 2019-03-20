@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YPMenuItem (Private)
 
-@property (nonatomic, strong) UIButton *menuButton;
+
 
 @end
 

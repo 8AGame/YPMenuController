@@ -14,7 +14,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.windowLevel = UIWindowLevelStatusBar + 10.;
-        self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }

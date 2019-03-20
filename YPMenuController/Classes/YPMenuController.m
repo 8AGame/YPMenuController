@@ -39,31 +39,38 @@
         self.menuWindow = [[YPMenuWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         __weak __typeof(self)weakSelf = self;
         self.menuWindow.touchPointInsideCanRespond = ^BOOL(CGPoint point) {
+            if (!weakSelf.calloutBar) return NO;
             return CGRectContainsPoint(weakSelf.calloutBar.frame, point);
         };
     }
     return self;
 }
 
-- (void)setMenuVisible:(BOOL)menuVisible animated:(BOOL)animated {
-    if (menuVisible) {
-        self.menuWindow.hidden = NO;
-        CGRect bounds = [UIScreen mainScreen].bounds;
-        CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
-        self.calloutBar = [[YPCalloutBar alloc] init];
-        self.calloutBar.frame = CGRectMake(10, CGRectGetMaxY(transformRect), CGRectGetWidth(bounds)-20, 60);
-        self.calloutBar.backgroundColor = [UIColor whiteColor];
-        [self.menuWindow addSubview:self.calloutBar];
-    }else{
-        self.menuWindow.hidden = YES;
-        [self.calloutBar removeFromSuperview];
-        self.calloutBar = nil;
-    }
+
+- (void)setMenuItems:(NSArray<YPMenuItem *> *)menuItems
+            menuType:(YPMenuControllerType)menuType {
+    _menuItems = menuItems;
+    _menuType = menuType;
 }
 
 - (void)setTargetRect:(CGRect)targetRect inView:(UIView *)targetView {
     self.targetRect = targetRect;
     self.targetView = targetView;
+}
+
+- (void)setMenuVisible:(BOOL)menuVisible animated:(BOOL)animated {
+    if (menuVisible) {
+        self.menuWindow.hidden = NO;
+        CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
+        self.calloutBar = [[YPCalloutBar alloc] init];
+        [self.calloutBar layoutBarItemsWithMenuItems:self.menuItems transformRect:transformRect menuType:self.menuType];
+        [self.menuWindow addSubview:self.calloutBar];
+        
+    }else{
+        self.menuWindow.hidden = YES;
+        [self.calloutBar removeFromSuperview];
+        self.calloutBar = nil;
+    }
 }
 
 

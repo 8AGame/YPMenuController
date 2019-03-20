@@ -12,6 +12,7 @@
 
 #import "YPCalloutBar.h"
 #import "YPMenuWindow.h"
+#import "YPMenuComponets.h"
 #import "YPMenuItem+Private.h"
 #import "YPMenuController.h"
 #import "YPMenuItem.h"

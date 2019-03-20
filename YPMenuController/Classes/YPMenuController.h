@@ -6,6 +6,7 @@
 //
 
 #import "YPMenuItem.h"
+#import "YPMenuComponets.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,13 +18,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (YPMenuController *)sharedMenuController;
 
-@property(nonatomic, copy) NSArray<YPMenuItem *> *menuItems;
+@property(nonatomic, strong, readonly) NSArray<YPMenuItem *> *menuItems;
+
+@property(nonatomic, assign, readonly) YPMenuControllerType menuType;
 
 @property(nonatomic,getter=isMenuVisible) BOOL menuVisible; // default is NO
 
-- (void)setTargetRect:(CGRect)targetRect inView:(UIView *)targetView;
+- (void)setMenuItems:(NSArray<YPMenuItem *> *)menuItems
+            menuType:(YPMenuControllerType)menuType;
 
-- (void)setMenuVisible:(BOOL)menuVisible animated:(BOOL)animated;
+- (void)setTargetRect:(CGRect)targetRect
+               inView:(UIView *)targetView;
+
+- (void)setMenuVisible:(BOOL)menuVisible
+              animated:(BOOL)animated;
 
 @end
 

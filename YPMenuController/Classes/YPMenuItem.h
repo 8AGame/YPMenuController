@@ -10,34 +10,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, YPMenuItemType) {
-    YPMenuItemSystem,
-    YPMenuItemImageOnly,
-    YPMenuItemTitleLeftImageRight,
-    YPMenuItemImageLeftTitleRight,
-    YPMenuItemImageUpTitleDown,
-    YPMenuItemTitleUpImageDown,
-    YPMenuItemCustom
-};
-
 @interface YPMenuItem : NSObject
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
 + (instancetype)new UNAVAILABLE_ATTRIBUTE;
 
-+ (instancetype)itemSystemWithAction:(SEL)action
-                               title:(NSString *)title;
+- (instancetype)initSystemWithAction:(SEL)action
+                               title:(NSString *)title NS_DESIGNATED_INITIALIZER;
 
-+ (instancetype)itemTitleAndImageWithAction:(SEL)action
+- (instancetype)initTitleAndImageWithAction:(SEL)action
                                       title:(nullable NSString *)title
-                                      image:(nullable UIImage *)image
-                                   itemType:(YPMenuItemType)itemType;
+                                      image:(nullable UIImage *)image NS_DESIGNATED_INITIALIZER;
 
-+ (instancetype)itemTitleAndImageWithAction:(SEL)action
-                                 customView:(UIView *)customView;
-
-@property (nonatomic, assign, readonly) YPMenuItemType itemType;
+- (instancetype)initTitleAndImageWithAction:(SEL)action
+                                 customView:(UIView *)customView NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, assign, readonly) SEL action;
 

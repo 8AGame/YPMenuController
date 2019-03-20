@@ -6,7 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YPMenuItem+Private.h"
+#import "YPMenuComponets.h"
+
+@class YPMenuItem;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat barHeight;
 
-@property(nonatomic, strong) NSArray<YPMenuItem *> *menuItems;
+- (void)layoutBarItemsWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
+                      transformRect:(CGRect)transformRect
+                           menuType:(YPMenuControllerType)menuType;
 
 @end
 
