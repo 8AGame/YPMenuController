@@ -39,8 +39,14 @@
         self.menuWindow = [[YPMenuWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         __weak __typeof(self)weakSelf = self;
         self.menuWindow.touchPointInsideCanRespond = ^BOOL(CGPoint point) {
-            if (!weakSelf.calloutBar) return NO;
-            return CGRectContainsPoint(weakSelf.calloutBar.frame, point);
+            if (weakSelf.calloutBar &&
+                CGRectContainsPoint(weakSelf.calloutBar.frame, point)) {
+                return YES;
+            }else{
+                //应该是当点击 menu 区域时候松开手才消失
+                [weakSelf setMenuVisible:NO animated:YES];
+                return NO;
+            }
         };
     }
     return self;
@@ -64,13 +70,21 @@
         CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
         self.calloutBar = [[YPCalloutBar alloc] init];
         [self.calloutBar layoutBarItemsWithMenuItems:self.menuItems transformRect:transformRect menuType:self.menuType];
+        self.calloutBar.alpha = 0.0;
         [self.menuWindow addSubview:self.calloutBar];
+        if (animated) {
+            NSTimeInterval time =  0.16;
+            [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
+                self.calloutBar.alpha = 1;
+            } completion:nil];
+        }
         
     }else{
         self.menuWindow.hidden = YES;
         [self.calloutBar removeFromSuperview];
         self.calloutBar = nil;
     }
+    
 }
 
 

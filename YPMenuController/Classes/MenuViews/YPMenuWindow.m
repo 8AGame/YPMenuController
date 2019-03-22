@@ -13,7 +13,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.windowLevel = UIWindowLevelStatusBar + 10.;
+        self.windowLevel = UIWindowLevelStatusBar + 66.;
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
@@ -23,11 +23,9 @@
     BOOL canRespond = NO;
     if (self.touchPointInsideCanRespond &&
         self.touchPointInsideCanRespond(point)) {
-        
         canRespond = [super pointInside:point withEvent:event];
     }
     return canRespond;
-
 }
 
 @end

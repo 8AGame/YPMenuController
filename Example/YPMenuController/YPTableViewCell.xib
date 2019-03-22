@@ -19,10 +19,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0P-n9-rpt">
-                        <rect key="frame" x="20" y="20" width="360" height="50"/>
+                        <rect key="frame" x="220" y="10" width="160" height="50"/>
                         <color key="backgroundColor" red="0.043137254899999998" green="0.80392156859999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="df7-SW-e55"/>
+                            <constraint firstAttribute="width" constant="160" id="tl1-nH-bok"/>
                         </constraints>
                         <state key="normal" title="点击弹Menu">
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -31,12 +32,26 @@
                             <action selector="popupMenu:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EyT-vJ-cXf"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsy-fY-eS4">
+                        <rect key="frame" x="240" y="70" width="160" height="50"/>
+                        <color key="backgroundColor" red="0.043137254899999998" green="0.80392156859999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="5UD-KK-X1t"/>
+                            <constraint firstAttribute="height" constant="50" id="IRD-ci-PgQ"/>
+                        </constraints>
+                        <state key="normal" title="系统Menu">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                        <connections>
+                            <action selector="systemAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1EF-ed-dlb"/>
+                        </connections>
+                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eQ-rk-o1J">
-                        <rect key="frame" x="170" y="90" width="60" height="40"/>
+                        <rect key="frame" x="0.0" y="80" width="120" height="40"/>
                         <color key="backgroundColor" red="0.043137254899999998" green="0.80392156859999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="aiA-AL-Qwn"/>
-                            <constraint firstAttribute="width" constant="60" id="uZC-kS-9Vf"/>
+                            <constraint firstAttribute="width" constant="120" id="uZC-kS-9Vf"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="弹Menu">
@@ -46,19 +61,36 @@
                             <action selector="action2:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Zqt-JZ-4ku"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9Q-Nz-fOQ">
+                        <rect key="frame" x="120" y="125" width="160" height="30"/>
+                        <color key="backgroundColor" red="0.043137254899999998" green="0.80392156859999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="F4A-Ca-nid"/>
+                        </constraints>
+                        <state key="normal" title="系统Menu">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                        <connections>
+                            <action selector="sys2:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dab-yr-yWK"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9eQ-rk-o1J" firstAttribute="top" secondItem="e0P-n9-rpt" secondAttribute="bottom" constant="20" id="2Hy-yz-fiS"/>
                     <constraint firstAttribute="trailing" secondItem="e0P-n9-rpt" secondAttribute="trailing" constant="20" id="7sE-ji-Lyu"/>
-                    <constraint firstItem="e0P-n9-rpt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="VMy-x3-upE"/>
-                    <constraint firstItem="e0P-n9-rpt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Va2-ud-UWl"/>
-                    <constraint firstItem="9eQ-rk-o1J" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bPr-zk-GfK"/>
-                    <constraint firstItem="e0P-n9-rpt" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="epk-yr-9Sc"/>
+                    <constraint firstAttribute="bottom" secondItem="b9Q-Nz-fOQ" secondAttribute="bottom" constant="6.5" id="EUa-4H-KAD"/>
+                    <constraint firstItem="b9Q-Nz-fOQ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="JpA-gl-Fiv"/>
+                    <constraint firstItem="vsy-fY-eS4" firstAttribute="top" secondItem="e0P-n9-rpt" secondAttribute="bottom" constant="10" id="U7C-wv-r4Q"/>
+                    <constraint firstItem="e0P-n9-rpt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="VMy-x3-upE"/>
+                    <constraint firstItem="9eQ-rk-o1J" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="juM-k2-rQd"/>
+                    <constraint firstAttribute="trailing" secondItem="vsy-fY-eS4" secondAttribute="trailing" id="sSZ-Ww-XbM"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="clickBtn" destination="e0P-n9-rpt" id="Ctv-oD-yzc"/>
                 <outlet property="clickBtn2" destination="9eQ-rk-o1J" id="DaS-X6-AI9"/>
+                <outlet property="sys2Btn" destination="b9Q-Nz-fOQ" id="g1b-hp-dne"/>
+                <outlet property="systemBtn" destination="vsy-fY-eS4" id="xuu-jc-vVZ"/>
             </connections>
             <point key="canvasLocation" x="-142.40000000000001" y="-31.484257871064472"/>
         </tableViewCell>
