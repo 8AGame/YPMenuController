@@ -64,7 +64,10 @@
     self.targetView = targetView;
     self.menuWindow.hidden = NO;
     CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
-    self.calloutBar = [[YPCalloutBar alloc] initCalloutBarWithMenuItems:self.menuItems  transformRect:transformRect menuType:self.menuType];
+    self.calloutBar = [[YPCalloutBar alloc] initWithMenuItems:self.menuItems
+                                                transformRect:transformRect
+                                                     menuType:self.menuType
+                                               arrowDirection:self.arrowDirection];
     __weak __typeof(self)weakSelf = self;
     self.calloutBar.triggerClickBlock = ^(SEL  _Nonnull action) {
         [weakSelf performMenuSelector:action];

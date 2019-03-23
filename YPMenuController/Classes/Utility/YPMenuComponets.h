@@ -18,4 +18,10 @@ typedef NS_ENUM(NSInteger, YPMenuControllerType) {
     YPMenuControllerCustom
 };
 
+typedef NS_ENUM(NSInteger, YPMenuControllerArrowDirection) {
+    YPMenuControllerArrowDefault, // up or down based on screen location
+    YPMenuControllerArrowUp,
+    YPMenuControllerArrowDown,
+};
+
 #endif /* YPMenuComponets_h */

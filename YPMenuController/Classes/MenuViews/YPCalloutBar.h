@@ -14,9 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YPCalloutBar : UIView
 
-- (instancetype)initCalloutBarWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
-                              transformRect:(CGRect)transformRect
-                                   menuType:(YPMenuControllerType)menuType;
+- (instancetype)initWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
+                    transformRect:(CGRect)transformRect
+                         menuType:(YPMenuControllerType)menuType
+                   arrowDirection:(YPMenuControllerArrowDirection)arrowDirection;
 
 - (void)layoutBarItems;
 

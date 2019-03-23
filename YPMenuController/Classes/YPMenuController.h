@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, assign, readonly) YPMenuControllerType menuType;
 
+@property(nonatomic, assign) YPMenuControllerArrowDirection arrowDirection;
+
 - (void)setMenuItems:(NSArray<YPMenuItem *> *)menuItems
             menuType:(YPMenuControllerType)menuType;
 

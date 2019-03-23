@@ -12,7 +12,6 @@
 #define kBarHeight              60
 #define kBarMarginLeft          10
 #define kBarContentHeight       36
-#define kBarContentMarginTop    15
 #define kSkipBtnWidth           32
 
 #define kBarMaxWidth  ((CGRectGetWidth([UIScreen mainScreen].bounds))-(kBarMarginLeft)*2)
@@ -46,19 +45,24 @@
 
 @property (nonatomic, strong) NSArray<YPMenuItem *> *menuItems;
 
+@property(nonatomic, assign) YPMenuControllerArrowDirection arrowDirection;
+
 @end
 
 @implementation YPCalloutBar
 
-- (instancetype)initCalloutBarWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
-                              transformRect:(CGRect)transformRect
-                                   menuType:(YPMenuControllerType)menuType{
+- (instancetype)initWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
+                    transformRect:(CGRect)transformRect
+                         menuType:(YPMenuControllerType)menuType
+                   arrowDirection:(YPMenuControllerArrowDirection)arrowDirection {
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.transformRect = transformRect;
         self.menuType = menuType;
         self.menuItems = menuItems;
+        self.arrowDirection = arrowDirection;
+
     }
     return self;
 
@@ -92,18 +96,17 @@
 
 - (void)layoutMenusWhetherHasMore:(BOOL)hasMore towardRight:(BOOL)towardRight {
  
-    //menu total width
     CGFloat totalWidth = 0;
-    
+    CGFloat contentMarginTop = [self getBarContentMarginTop];
+
     //menu range
     NSRange range = NSMakeRange(0, self.menuItemBtns.count);
     if (hasMore) {
         range = [self calculateShowRangeForHasMoreWithTowardRight:towardRight];
     }
-
     //left skip button
     if (hasMore && range.location > 0) {
-        self.leftSkipBtn.frame = CGRectMake(0, kBarContentMarginTop, kSkipBtnWidth, kBarContentHeight);
+        self.leftSkipBtn.frame = CGRectMake(0, contentMarginTop, kSkipBtnWidth, kBarContentHeight);
         [self addSubview:self.leftSkipBtn];
         totalWidth += kSkipBtnWidth;
         //line view
@@ -115,7 +118,7 @@
     NSInteger length = NSMaxRange(range);
     for (; startLoc < length; startLoc++) {
         UIButton *perBtn = self.menuItemBtns[startLoc];
-        perBtn.frame = CGRectMake(totalWidth, kBarContentMarginTop, CGRectGetWidth(perBtn.frame), kBarContentHeight);
+        perBtn.frame = CGRectMake(totalWidth, contentMarginTop, CGRectGetWidth(perBtn.frame), kBarContentHeight);
         [self addSubview:perBtn];
         totalWidth += CGRectGetWidth(perBtn.frame);
         //line view
@@ -125,7 +128,7 @@
     //right skip button
     if (hasMore) {
         self.rightSkipBtn.enabled = YES;
-        self.rightSkipBtn.frame = CGRectMake(totalWidth, kBarContentMarginTop, kSkipBtnWidth, kBarContentHeight);
+        self.rightSkipBtn.frame = CGRectMake(totalWidth, contentMarginTop, kSkipBtnWidth, kBarContentHeight);
         [self addSubview:self.rightSkipBtn];
         totalWidth += kSkipBtnWidth;
         if (NSMaxRange(range) >= self.menuItems.count) {
@@ -133,7 +136,6 @@
         }
     }
     [self setCallBarFrameWithBarWidth:totalWidth];
-    [self addBackupLayerForMiddleX:CGRectGetMidX(self.transformRect)];
 }
 
 - (NSRange)calculateShowRangeForHasMoreWithTowardRight:(BOOL)towardRight  {
@@ -226,12 +228,14 @@
 }
 
 - (UIView *)lineViewWithXValue:(CGFloat)xValue {
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, kBarContentMarginTop, 1, kBarContentHeight)];
+    CGFloat contentMarginTop = [self getBarContentMarginTop];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, contentMarginTop, 1, kBarContentHeight)];
     lineView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
     return lineView;
 }
 
 - (void)setCallBarFrameWithBarWidth:(CGFloat)barWidth {
+    //x
     CGFloat barX = 0;
     CGRect bounds = [UIScreen mainScreen].bounds;
     if (CGRectGetMidX(self.transformRect) < CGRectGetMidX(bounds)) {
@@ -239,7 +243,17 @@
     }else{
         barX = CGRectGetWidth(bounds) - barWidth - kBarMarginLeft;
     }
-    self.frame = CGRectMake(barX, CGRectGetMaxY(self.transformRect), barWidth, kBarHeight);
+    //y
+    CGFloat barY = 0;
+    if (self.arrowDirection == YPMenuControllerArrowDefault ||
+        self.arrowDirection == YPMenuControllerArrowDown) {
+        barY = CGRectGetMinY(self.transformRect) - kBarHeight;
+        
+    }else{
+        barY = CGRectGetMaxY(self.transformRect);
+    }
+    self.frame = CGRectMake(barX, barY, barWidth, kBarHeight);
+    [self addBackupLayer];
 }
 
 #pragma mark -- Skip buttons
@@ -306,28 +320,52 @@
 }
 
 #pragma mark -- Backup layer
-- (void)addBackupLayerForMiddleX:(CGFloat)middleX {
+- (void)addBackupLayer {
+    CGFloat middleX = CGRectGetMidX(self.transformRect);
     self.backupLayer = [CAShapeLayer layer];
     self.backupLayer.backgroundColor = [UIColor clearColor].CGColor;
     UIBezierPath *path = [UIBezierPath bezierPath];
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat cornerRadius = 6;
-    CGFloat triangleMarginTop = 5;
     CGFloat triangleRadius = 8;
     //rectangle
-    CGRect pathRect = CGRectMake(0, kBarContentMarginTop, width, kBarContentHeight);
+    //y
+    CGFloat backupY = [self getBarContentMarginTop];
+
+    CGFloat triangleStartY = 0;
+    if (self.arrowDirection == YPMenuControllerArrowDefault ||
+        self.arrowDirection == YPMenuControllerArrowDown) {
+        triangleStartY = kBarHeight - 5;
+        
+    }else{
+        triangleStartY = 5;
+    }
+
+    CGRect pathRect = CGRectMake(0, backupY, width, kBarContentHeight);
     path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:cornerRadius];
     //triangle
     middleX -= self.frame.origin.x;
-    [path moveToPoint:CGPointMake(middleX, triangleMarginTop)];
-    [path addLineToPoint:CGPointMake(middleX-triangleRadius, kBarContentMarginTop)];
-    [path addLineToPoint:CGPointMake(middleX+triangleRadius, kBarContentMarginTop)];
+    [path moveToPoint:CGPointMake(middleX, triangleStartY)];
+    [path addLineToPoint:CGPointMake(middleX-triangleRadius, backupY)];
+    [path addLineToPoint:CGPointMake(middleX+triangleRadius, backupY)];
 
     self.backupLayer.path = path.CGPath;
     self.backupLayer.frame = self.bounds;
     self.backupLayer.fillColor = [UIColor colorWithRed:31/255 green:31/288 blue:31/255 alpha:0.96].CGColor;
     [self.layer insertSublayer:self.backupLayer atIndex:0];
 }
+
+- (CGFloat)getBarContentMarginTop {
+    if (self.arrowDirection == YPMenuControllerArrowDefault ||
+        self.arrowDirection == YPMenuControllerArrowDown) {
+        return kBarHeight - 15 - kBarContentHeight;
+        
+    }else{
+       return 15;
+    }
+}
+
+
 
 
 @end
