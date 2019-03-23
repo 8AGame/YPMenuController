@@ -43,8 +43,7 @@
                 CGRectContainsPoint(weakSelf.calloutBar.frame, point)) {
                 return YES;
             }else{
-                //应该是当点击 menu 区域时候松开手才消失
-                [weakSelf setMenuVisible:NO animated:YES];
+                [weakSelf menuInvisibleWithAnimated:YES];
                 return NO;
             }
         };
@@ -52,39 +51,57 @@
     return self;
 }
 
-
 - (void)setMenuItems:(NSArray<YPMenuItem *> *)menuItems
             menuType:(YPMenuControllerType)menuType {
     _menuItems = menuItems;
     _menuType = menuType;
 }
 
-- (void)setTargetRect:(CGRect)targetRect inView:(UIView *)targetView {
+- (void)menuVisibleInView:(UIView *)targetView
+               targetRect:(CGRect)targetRect
+                 animated:(BOOL)animated {
     self.targetRect = targetRect;
     self.targetView = targetView;
+    self.menuWindow.hidden = NO;
+    CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
+    self.calloutBar = [[YPCalloutBar alloc] initCalloutBarWithMenuItems:self.menuItems  transformRect:transformRect menuType:self.menuType];
+    __weak __typeof(self)weakSelf = self;
+    self.calloutBar.triggerClickBlock = ^(SEL  _Nonnull action) {
+        [weakSelf performMenuSelector:action];
+    };
+    [self.calloutBar layoutBarItems];
+    self.calloutBar.alpha = 0.0;
+    [self.menuWindow addSubview:self.calloutBar];
+    if (animated) {
+        NSTimeInterval time =  0.16;
+        [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
+            self.calloutBar.alpha = 1;
+        } completion:nil];
+    }
 }
 
-- (void)setMenuVisible:(BOOL)menuVisible animated:(BOOL)animated {
-    if (menuVisible) {
-        self.menuWindow.hidden = NO;
-        CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
-        self.calloutBar = [[YPCalloutBar alloc] initCalloutBarWithMenuItems:self.menuItems  transformRect:transformRect menuType:self.menuType];
-        [self.calloutBar layoutBarItems];
-        self.calloutBar.alpha = 0.0;
-        [self.menuWindow addSubview:self.calloutBar];
-        if (animated) {
-            NSTimeInterval time =  0.16;
-            [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
-                self.calloutBar.alpha = 1;
-            } completion:nil];
-        }
-        
-    }else{
-        self.menuWindow.hidden = YES;
-        [self.calloutBar removeFromSuperview];
-        self.calloutBar = nil;
+- (void)menuInvisibleWithAnimated:(BOOL)animated {
+    self.calloutBar.alpha = 1;
+    if (animated) {
+        NSTimeInterval time =  0.2;
+        [UIView animateWithDuration:time delay:0.2 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
+            self.calloutBar.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.menuWindow.hidden = YES;
+            [self.calloutBar removeFromSuperview];
+            self.calloutBar = nil;
+        }];
     }
-    
+}
+
+- (void)performMenuSelector:(SEL)sel {
+    if (self.targetView && [self.targetView respondsToSelector:sel]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.targetView performSelector:sel withObject:self];
+#pragma clang diagnostic pop
+    }
+    [self menuInvisibleWithAnimated:YES];
 }
 
 

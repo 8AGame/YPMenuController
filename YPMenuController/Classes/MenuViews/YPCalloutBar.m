@@ -7,6 +7,7 @@
 
 #import "YPCalloutBar.h"
 #import "YPMenuItem.h"
+#import <objc/runtime.h>
 
 #define kBarHeight              60
 #define kBarMarginLeft          10
@@ -58,10 +59,6 @@
         self.transformRect = transformRect;
         self.menuType = menuType;
         self.menuItems = menuItems;
-        self.currentNode = [[YPMenuNode alloc] init];
-        self.currentNode.previous = nil;
-        self.currentNode.currentRange = NSMakeRange(0, 0);
-        
     }
     return self;
 
@@ -141,10 +138,10 @@
 
 - (NSRange)calculateShowRangeForHasMoreWithTowardRight:(BOOL)towardRight  {
     if (!towardRight){
-        self.currentNode.currentRange = self.currentNode.previous.currentRange;
-        self.currentNode.previous = self.currentNode.previous.previous;
+        self.currentNode = self.currentNode.previous;
         return self.currentNode.currentRange;
     }
+    //`startLoc` is 0 indicate that initial bar view.
     NSInteger startLoc = NSMaxRange(self.currentNode.currentRange);
 
     int skipBtnCount = 1;
@@ -162,7 +159,7 @@
     if (startLoc > 0) {
         node.previous = self.currentNode;
     }else {
-        node.previous = NULL;
+        node.previous = nil;
     }
     node.currentRange = NSMakeRange(startLoc, endLoc-startLoc);
     self.currentNode = node;
@@ -174,7 +171,8 @@
     UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     menuBtn.backgroundColor = [UIColor clearColor];
     menuBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
-
+    [menuBtn addTarget:self action:@selector(itemButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    objc_setAssociatedObject(menuBtn, @selector(itemButtonAction:), menuItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (menuItem.title &&
         (self.menuType == YPMenuControllerSystem ||
         self.menuType == YPMenuControllerImageUpTitleDown ||
@@ -219,7 +217,12 @@
 }
 
 - (void)itemButtonAction:(id)sender {
-    
+    YPMenuItem *item = objc_getAssociatedObject(sender, @selector(itemButtonAction:));
+    if (item && [item isKindOfClass:YPMenuItem.class]) {
+        if (self.triggerClickBlock) {
+            self.triggerClickBlock(item.action);
+        }
+    }
 }
 
 - (UIView *)lineViewWithXValue:(CGFloat)xValue {

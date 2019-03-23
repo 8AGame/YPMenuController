@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)layoutBarItems;
 
+@property (nonatomic, copy) void (^triggerClickBlock)(SEL action);
+
+
 @property (nonatomic, assign) CGFloat barHeight;
 
 

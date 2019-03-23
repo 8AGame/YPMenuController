@@ -22,16 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, assign, readonly) YPMenuControllerType menuType;
 
-@property(nonatomic,getter=isMenuVisible) BOOL menuVisible; // default is NO
-
 - (void)setMenuItems:(NSArray<YPMenuItem *> *)menuItems
             menuType:(YPMenuControllerType)menuType;
 
-- (void)setTargetRect:(CGRect)targetRect
-               inView:(UIView *)targetView;
+- (void)menuVisibleInView:(UIView *)targetView
+               targetRect:(CGRect)targetRect
+                 animated:(BOOL)animated;
 
-- (void)setMenuVisible:(BOOL)menuVisible
-              animated:(BOOL)animated;
+- (void)menuInvisibleWithAnimated:(BOOL)animated;
 
 @end
 
