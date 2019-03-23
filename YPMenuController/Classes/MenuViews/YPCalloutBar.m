@@ -16,9 +16,18 @@
 
 #define kBarMaxWidth  ((CGRectGetWidth([UIScreen mainScreen].bounds))-(kBarMarginLeft)*2)
 
-@interface YPCalloutBar ()
 
-@property (nonatomic, assign) NSRange showMenusRange;
+@interface YPMenuNode: NSObject
+
+@property (nonatomic, strong) YPMenuNode *previous;
+
+@property (nonatomic, assign) NSRange currentRange;
+
+@end
+@implementation YPMenuNode @end
+
+
+@interface YPCalloutBar ()
 
 @property (nonatomic, strong) CAShapeLayer *backupLayer;
 
@@ -27,6 +36,8 @@
 @property (nonatomic, strong) UIButton *rightSkipBtn;
 
 @property (nonatomic, assign) CGRect transformRect;
+
+@property (nonatomic, strong) YPMenuNode *currentNode;
 
 @property (nonatomic, assign) YPMenuControllerType menuType;
 
@@ -47,6 +58,10 @@
         self.transformRect = transformRect;
         self.menuType = menuType;
         self.menuItems = menuItems;
+        self.currentNode = [[YPMenuNode alloc] init];
+        self.currentNode.previous = nil;
+        self.currentNode.currentRange = NSMakeRange(0, 0);
+        
     }
     return self;
 
@@ -86,7 +101,7 @@
     //menu range
     NSRange range = NSMakeRange(0, self.menuItemBtns.count);
     if (hasMore) {
-        range = [self calculateShowRangeWithTowardRight:towardRight];
+        range = [self calculateShowRangeForHasMoreWithTowardRight:towardRight];
     }
 
     //left skip button
@@ -124,21 +139,34 @@
     [self addBackupLayerForMiddleX:CGRectGetMidX(self.transformRect)];
 }
 
-- (NSRange)calculateShowRangeWithTowardRight:(BOOL)towardRight  {
+- (NSRange)calculateShowRangeForHasMoreWithTowardRight:(BOOL)towardRight  {
+    if (!towardRight){
+        self.currentNode.currentRange = self.currentNode.previous.currentRange;
+        self.currentNode.previous = self.currentNode.previous.previous;
+        return self.currentNode.currentRange;
+    }
+    NSInteger startLoc = NSMaxRange(self.currentNode.currentRange);
+
     int skipBtnCount = 1;
-    if (self.showMenusRange.location > 0) skipBtnCount = 2;
+    if (startLoc > 0) skipBtnCount = 2;
     CGFloat restWidth = kBarMaxWidth - skipBtnCount * kSkipBtnWidth;
     
     CGFloat curTotal = 0;
-    NSInteger startLoc = NSMaxRange(self.showMenusRange);
     NSInteger endLoc = startLoc;
     for (; endLoc < self.menuItemBtns.count; endLoc++) {
         UIButton *btn = self.menuItemBtns[endLoc];
         curTotal += btn.frame.size.width;
         if (curTotal > restWidth) break;
     }
-    self.showMenusRange = NSMakeRange(startLoc, endLoc-startLoc);
-    return self.showMenusRange;
+    YPMenuNode *node = [[YPMenuNode alloc] init];
+    if (startLoc > 0) {
+        node.previous = self.currentNode;
+    }else {
+        node.previous = NULL;
+    }
+    node.currentRange = NSMakeRange(startLoc, endLoc-startLoc);
+    self.currentNode = node;
+    return self.currentNode.currentRange;
 }
 
 - (UIButton *)createBarButtonWithMenuItem:(YPMenuItem *)menuItem {
@@ -213,9 +241,10 @@
 
 #pragma mark -- Skip buttons
 - (void)leftSikpAction {
-    
-
+    [self clearAllSubViews];
+    [self layoutMenusWhetherHasMore:YES towardRight:NO];
 }
+
 - (void)rightSikpAction {
     [self clearAllSubViews];
     [self layoutMenusWhetherHasMore:YES towardRight:YES];
