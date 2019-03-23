@@ -12,7 +12,7 @@
 #define kBarMarginLeft          10
 #define kBarContentHeight       36
 #define kBarContentMarginTop    15
-#define kSkipBtnWidth           29
+#define kSkipBtnWidth           32
 
 #define kBarMaxWidth  ((CGRectGetWidth([UIScreen mainScreen].bounds))-(kBarMarginLeft)*2)
 
@@ -20,128 +20,153 @@
 
 @property (nonatomic, assign) NSRange showMenusRange;
 
+@property (nonatomic, strong) CAShapeLayer *backupLayer;
+
 @property (nonatomic, strong) UIButton *leftSkipBtn;
 
 @property (nonatomic, strong) UIButton *rightSkipBtn;
+
+@property (nonatomic, assign) CGRect transformRect;
+
+@property (nonatomic, assign) YPMenuControllerType menuType;
+
+@property (nonatomic, strong) NSMutableArray *menuItemBtns;
+
+@property (nonatomic, strong) NSArray<YPMenuItem *> *menuItems;
 
 @end
 
 @implementation YPCalloutBar
 
-- (instancetype)init
-{
+- (instancetype)initCalloutBarWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
+                              transformRect:(CGRect)transformRect
+                                   menuType:(YPMenuControllerType)menuType{
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        self.transformRect = transformRect;
+        self.menuType = menuType;
+        self.menuItems = menuItems;
     }
     return self;
+
 }
 
-- (void)layoutBarItemsWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
-                      transformRect:(CGRect)transformRect
-                           menuType:(YPMenuControllerType)menuType
-{
+- (void)layoutBarItems {
     //custom style
-    if (menuType == YPMenuControllerCustom) {
+    if (self.menuType == YPMenuControllerCustom) {
         return;
     }
     CGFloat maxWidth = kBarMaxWidth;
     CGFloat totalWidth = 0;
 
-    NSMutableArray *menuBtns = [[NSMutableArray alloc] init];
-    for (YPMenuItem *item in menuItems) {
+    self.menuItemBtns = [[NSMutableArray alloc] init];
+    for (YPMenuItem *item in self.menuItems) {
         //image and title style
-        UIButton *menuBtn = [self createBarButtonWithMenuItem:item menuType:menuType];
+        UIButton *menuBtn = [self createBarButtonWithMenuItem:item];
         CGFloat maxContent = maxWidth - kSkipBtnWidth *2;
         CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, kBarContentHeight)];
         menuBtn.frame = CGRectMake(0, 0, size.width, size.height);
         totalWidth += size.width;
-        [menuBtns addObject:menuBtn];
+        [self.menuItemBtns addObject:menuBtn];
     }
     if (totalWidth <= maxWidth) {
-        CGFloat menuTotalWidth = [self layoutMenusWithRange:NSMakeRange(0, menuBtns.count) transformRect:transformRect menuBtns:menuBtns];
-        [self setCallBarFrameWithTransformRect:transformRect barWidth:menuTotalWidth];
+        [self layoutMenusWhetherHasMore:NO towardRight:NO];
 
     }else{
-        CGFloat restWidth = maxWidth - kSkipBtnWidth;
-        NSRange showRange = [self calculateShowMenusRangeWithMaxWidth:restWidth menuBtns:menuBtns];
-        
-        CGFloat menuTotalWidth = [self layoutMenusWithRange:showRange transformRect:transformRect menuBtns:menuBtns];
-        
-        UIButton *skipButton = [self createSkipButtonForIsLeft:NO];
-        skipButton.frame = CGRectMake(menuTotalWidth, kBarContentMarginTop, kSkipBtnWidth, kBarContentHeight);
-        [self addSubview:skipButton];
-        menuTotalWidth += kSkipBtnWidth;
-        
-        [self setCallBarFrameWithTransformRect:transformRect barWidth:menuTotalWidth];
+        [self layoutMenusWhetherHasMore:YES towardRight:YES];
     }
-
-
-    [self addBackupLayerForMiddleX:CGRectGetMidX(transformRect)];
 }
 
-- (CGFloat)layoutMenusWithRange:(NSRange)range
-               transformRect:(CGRect)transformRect
-                    menuBtns:(NSMutableArray *)menuBtns{
+- (void)layoutMenusWhetherHasMore:(BOOL)hasMore towardRight:(BOOL)towardRight {
+ 
+    //menu total width
+    CGFloat totalWidth = 0;
     
-    CGFloat curX = 0;
+    //menu range
+    NSRange range = NSMakeRange(0, self.menuItemBtns.count);
+    if (hasMore) {
+        range = [self calculateShowRangeWithTowardRight:towardRight];
+    }
+
+    //left skip button
+    if (hasMore && range.location > 0) {
+        self.leftSkipBtn.frame = CGRectMake(0, kBarContentMarginTop, kSkipBtnWidth, kBarContentHeight);
+        [self addSubview:self.leftSkipBtn];
+        totalWidth += kSkipBtnWidth;
+        //line view
+        [self addSubview:[self lineViewWithXValue:totalWidth]];
+    }
+    
+    //menus button
     NSInteger startLoc = range.location;
     NSInteger length = NSMaxRange(range);
     for (; startLoc < length; startLoc++) {
-        UIButton *perBtn = menuBtns[startLoc];
-        perBtn.frame = CGRectMake(curX, kBarContentMarginTop, CGRectGetWidth(perBtn.frame), kBarContentHeight);
+        UIButton *perBtn = self.menuItemBtns[startLoc];
+        perBtn.frame = CGRectMake(totalWidth, kBarContentMarginTop, CGRectGetWidth(perBtn.frame), kBarContentHeight);
         [self addSubview:perBtn];
-        curX += CGRectGetWidth(perBtn.frame);
+        totalWidth += CGRectGetWidth(perBtn.frame);
         //line view
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(curX, kBarContentMarginTop, 1, kBarContentHeight)];
-        lineView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-        [self addSubview:lineView];
+        [self addSubview:[self lineViewWithXValue:totalWidth]];
     }
-    //Menu total width
-    return curX;
+    
+    //right skip button
+    if (hasMore) {
+        self.rightSkipBtn.enabled = YES;
+        self.rightSkipBtn.frame = CGRectMake(totalWidth, kBarContentMarginTop, kSkipBtnWidth, kBarContentHeight);
+        [self addSubview:self.rightSkipBtn];
+        totalWidth += kSkipBtnWidth;
+        if (NSMaxRange(range) >= self.menuItems.count) {
+            self.rightSkipBtn.enabled = NO;
+        }
+    }
+    [self setCallBarFrameWithBarWidth:totalWidth];
+    [self addBackupLayerForMiddleX:CGRectGetMidX(self.transformRect)];
 }
 
-- (NSRange)calculateShowMenusRangeWithMaxWidth:(CGFloat)maxWidth
-                                      menuBtns:(NSMutableArray *)menuBtns {
+- (NSRange)calculateShowRangeWithTowardRight:(BOOL)towardRight  {
+    int skipBtnCount = 1;
+    if (self.showMenusRange.location > 0) skipBtnCount = 2;
+    CGFloat restWidth = kBarMaxWidth - skipBtnCount * kSkipBtnWidth;
+    
     CGFloat curTotal = 0;
     NSInteger startLoc = NSMaxRange(self.showMenusRange);
     NSInteger endLoc = startLoc;
-    for (; endLoc < menuBtns.count; endLoc++) {
-        UIButton *btn = menuBtns[endLoc];
+    for (; endLoc < self.menuItemBtns.count; endLoc++) {
+        UIButton *btn = self.menuItemBtns[endLoc];
         curTotal += btn.frame.size.width;
-        if (curTotal > maxWidth) break;
+        if (curTotal > restWidth) break;
     }
     self.showMenusRange = NSMakeRange(startLoc, endLoc-startLoc);
     return self.showMenusRange;
 }
 
-- (UIButton *)createBarButtonWithMenuItem:(YPMenuItem *)menuItem
-                                 menuType:(YPMenuControllerType)menuType {
+- (UIButton *)createBarButtonWithMenuItem:(YPMenuItem *)menuItem {
     
     UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     menuBtn.backgroundColor = [UIColor clearColor];
-    menuBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    menuBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
 
     if (menuItem.title &&
-        (menuType == YPMenuControllerSystem ||
-        menuType == YPMenuControllerImageUpTitleDown ||
-        menuType == YPMenuControllerTitleUpImageDown ||
-        menuType == YPMenuControllerImageLeftTitleRight ||
-        menuType == YPMenuControllerTitleLeftImageRight)) {
+        (self.menuType == YPMenuControllerSystem ||
+        self.menuType == YPMenuControllerImageUpTitleDown ||
+        self.menuType == YPMenuControllerTitleUpImageDown ||
+        self.menuType == YPMenuControllerImageLeftTitleRight ||
+        self.menuType == YPMenuControllerTitleLeftImageRight)) {
         
         [menuBtn setTitle:menuItem.title forState:UIControlStateNormal];
         menuBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     }
     if (menuItem.image &&
-        (menuType == YPMenuControllerImageOnly ||
-        menuType == YPMenuControllerImageUpTitleDown ||
-        menuType == YPMenuControllerTitleUpImageDown ||
-        menuType == YPMenuControllerImageLeftTitleRight ||
-        menuType == YPMenuControllerTitleLeftImageRight)) {
+        (self.menuType == YPMenuControllerImageOnly ||
+        self.menuType == YPMenuControllerImageUpTitleDown ||
+        self.menuType == YPMenuControllerTitleUpImageDown ||
+        self.menuType == YPMenuControllerImageLeftTitleRight ||
+        self.menuType == YPMenuControllerTitleLeftImageRight)) {
         
         [menuBtn setImage:menuItem.image forState:UIControlStateNormal];
     }
-    switch (menuType) {
+    switch (self.menuType) {
         case YPMenuControllerImageOnly:
             
             break;
@@ -169,26 +194,38 @@
     
 }
 
-- (void)setCallBarFrameWithTransformRect:(CGRect)transformRect
-                                barWidth:(CGFloat)barWidth {
+- (UIView *)lineViewWithXValue:(CGFloat)xValue {
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, kBarContentMarginTop, 1, kBarContentHeight)];
+    lineView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    return lineView;
+}
+
+- (void)setCallBarFrameWithBarWidth:(CGFloat)barWidth {
     CGFloat barX = 0;
     CGRect bounds = [UIScreen mainScreen].bounds;
-    if (CGRectGetMidX(transformRect) < CGRectGetMidX(bounds)) {
+    if (CGRectGetMidX(self.transformRect) < CGRectGetMidX(bounds)) {
         barX = kBarMarginLeft;
     }else{
         barX = CGRectGetWidth(bounds) - barWidth - kBarMarginLeft;
     }
-    self.frame = CGRectMake(barX, CGRectGetMaxY(transformRect), barWidth, kBarHeight);
+    self.frame = CGRectMake(barX, CGRectGetMaxY(self.transformRect), barWidth, kBarHeight);
 }
 
 #pragma mark -- Skip buttons
 - (void)leftSikpAction {
     
+
 }
 - (void)rightSikpAction {
-    
+    [self clearAllSubViews];
+    [self layoutMenusWhetherHasMore:YES towardRight:YES];
 }
-
+- (void)clearAllSubViews {
+    for (UIView *subView in self.subviews) {
+        [subView removeFromSuperview];
+    }
+    [self.backupLayer removeFromSuperlayer];
+}
 - (UIButton *)leftSkipBtn {
     if (!_leftSkipBtn) {
         _leftSkipBtn = [self createSkipButtonForIsLeft:YES];
@@ -205,7 +242,7 @@
 
 - (UIButton *)createSkipButtonForIsLeft:(BOOL)isLeft {
     UIImage *resultImage = nil;
-    CGSize size = CGSizeMake(8.7, 8.7);
+    CGSize size = CGSizeMake(10, 10);
     UIColor *tintColor = [UIColor whiteColor];
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -238,8 +275,8 @@
 
 #pragma mark -- Backup layer
 - (void)addBackupLayerForMiddleX:(CGFloat)middleX {
-    CAShapeLayer *backupLayer = [CAShapeLayer layer];
-    backupLayer.backgroundColor = [UIColor clearColor].CGColor;
+    self.backupLayer = [CAShapeLayer layer];
+    self.backupLayer.backgroundColor = [UIColor clearColor].CGColor;
     UIBezierPath *path = [UIBezierPath bezierPath];
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat cornerRadius = 6;
@@ -254,10 +291,10 @@
     [path addLineToPoint:CGPointMake(middleX-triangleRadius, kBarContentMarginTop)];
     [path addLineToPoint:CGPointMake(middleX+triangleRadius, kBarContentMarginTop)];
 
-    backupLayer.path = path.CGPath;
-    backupLayer.frame = self.bounds;
-    backupLayer.fillColor = [UIColor colorWithRed:31/255 green:31/288 blue:31/255 alpha:0.96].CGColor;
-    [self.layer insertSublayer:backupLayer atIndex:0];
+    self.backupLayer.path = path.CGPath;
+    self.backupLayer.frame = self.bounds;
+    self.backupLayer.fillColor = [UIColor colorWithRed:31/255 green:31/288 blue:31/255 alpha:0.96].CGColor;
+    [self.layer insertSublayer:self.backupLayer atIndex:0];
 }
 
 

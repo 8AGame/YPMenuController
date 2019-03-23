@@ -14,11 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YPCalloutBar : UIView
 
+- (instancetype)initCalloutBarWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
+                              transformRect:(CGRect)transformRect
+                                   menuType:(YPMenuControllerType)menuType;
+
+- (void)layoutBarItems;
+
 @property (nonatomic, assign) CGFloat barHeight;
 
-- (void)layoutBarItemsWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
-                      transformRect:(CGRect)transformRect
-                           menuType:(YPMenuControllerType)menuType;
+
 
 @end
 

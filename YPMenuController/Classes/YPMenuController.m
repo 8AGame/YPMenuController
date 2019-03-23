@@ -68,8 +68,8 @@
     if (menuVisible) {
         self.menuWindow.hidden = NO;
         CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
-        self.calloutBar = [[YPCalloutBar alloc] init];
-        [self.calloutBar layoutBarItemsWithMenuItems:self.menuItems transformRect:transformRect menuType:self.menuType];
+        self.calloutBar = [[YPCalloutBar alloc] initCalloutBarWithMenuItems:self.menuItems  transformRect:transformRect menuType:self.menuType];
+        [self.calloutBar layoutBarItems];
         self.calloutBar.alpha = 0.0;
         [self.menuWindow addSubview:self.calloutBar];
         if (animated) {
