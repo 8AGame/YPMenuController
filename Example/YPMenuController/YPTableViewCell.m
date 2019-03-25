@@ -88,7 +88,7 @@
     YPMenuItem *item10 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第十个" image:[UIImage imageNamed:@"like"]];
 
     NSArray *menus = sys1 ? @[item1, item2, item3, item4, item5, item6,item7,item8,item9,item10] : @[item1, item2, item3];
-    [[YPMenuController sharedMenuController] setMenuItems:menus menuType:YPMenuControllerSystem];
+    [[YPMenuController sharedMenuController] setMenuItems:menus menuType:YPMenuControllerTitleLeftImageRight];
     UIButton * btn = sys1 ? self.clickBtn : self.clickBtn2;
     [[YPMenuController sharedMenuController] menuVisibleInView:self
                                                     targetRect:btn.frame

@@ -214,16 +214,17 @@
             
             break;
         case YPMenuControllerImageUpTitleDown:
-            
             break;
         case YPMenuControllerTitleUpImageDown:
             
             break;
         case YPMenuControllerImageLeftTitleRight:
+            [menuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -6, 0, 0)];
 
             break;
         case YPMenuControllerTitleLeftImageRight:
-            
+//            [menuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -6, 0, 0)];
+
             break;
         case YPMenuControllerSystem:
             
