@@ -8,16 +8,20 @@
 
 @implementation YPMenuStyleConfig
 
-+ (instancetype)defaultStyleConfig {
-    YPMenuStyleConfig *config = [[YPMenuStyleConfig alloc] init];
-    config.menuType = YPMenuControllerSystem;
-    config.arrowDirection = YPMenuControllerArrowDefault;
-    config.barBackgroundColor = [UIColor colorWithRed:31/255 green:31/288 blue:31/255 alpha:0.96];
-    config.titleFont = [UIFont systemFontOfSize:14];
-    config.titleColor = [UIColor whiteColor];
-    config.triangleColor = [UIColor whiteColor];
-    config.separatorLineColor = [UIColor whiteColor];
-    return config;
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.menuType = YPMenuControllerSystem;
+        self.arrowDirection = YPMenuControllerArrowDefault;
+        self.barBackgroundColor = [UIColor colorWithRed:31/255 green:31/255 blue:31/255 alpha:0.96];
+        self.titleFont = [UIFont systemFontOfSize:14];
+        self.titleColor = [UIColor whiteColor];
+        self.skipTriangleColor = [UIColor whiteColor];
+        self.separatorLineColor = [UIColor whiteColor];
+    }
+    return self;
 }
 
 - (CGFloat)barHeight {

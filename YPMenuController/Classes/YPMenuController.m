@@ -47,14 +47,14 @@
                 return NO;
             }
         };
-        _styleConfig = [YPMenuStyleConfig defaultStyleConfig];
+        _styleConfig = [[YPMenuStyleConfig alloc] init];
     }
     return self;
 }
 
 -(void)setStyleConfig:(YPMenuStyleConfig *)styleConfig {
     if (!styleConfig) {
-        _styleConfig = [YPMenuStyleConfig defaultStyleConfig];
+        _styleConfig = [[YPMenuStyleConfig alloc] init];
     }else{
         _styleConfig = styleConfig;
     }

@@ -28,7 +28,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YPTableViewCell" forIndexPath:indexPath];
-    [cell.systemBtn setTitle:self.text forState:UIControlStateNormal];
     return cell;
 }
 

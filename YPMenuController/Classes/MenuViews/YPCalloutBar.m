@@ -336,7 +336,7 @@
     [path addLineToPoint:linePoint1];
     [path addLineToPoint:linePoint2];
     [path closePath];
-    CGContextSetFillColorWithColor(context, self.styleConfig.triangleColor.CGColor);
+    CGContextSetFillColorWithColor(context, self.styleConfig.skipTriangleColor.CGColor);
     [path fill];
     //image
     UIImage *triangleImage = UIGraphicsGetImageFromCurrentImageContext();
