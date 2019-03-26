@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2411D21A2240BD3C005DFA19 /* ReporderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2411D2192240BD3C005DFA19 /* ReporderView.m */; };
 		2411D21D2240BE17005DFA19 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2411D21C2240BE17005DFA19 /* BaseTableViewCell.m */; };
 		241213492242258500F91647 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 241213482242258500F91647 /* like@2x.png */; };
 		2417EF2F223FA012002C4E33 /* YPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2417EF2D223FA012002C4E33 /* YPTableViewCell.m */; };
@@ -42,8 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2411D2182240BD3C005DFA19 /* ReporderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReporderView.h; sourceTree = "<group>"; };
-		2411D2192240BD3C005DFA19 /* ReporderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReporderView.m; sourceTree = "<group>"; };
 		2411D21B2240BE17005DFA19 /* BaseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		2411D21C2240BE17005DFA19 /* BaseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		241213482242258500F91647 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like@2x.png"; sourceTree = "<group>"; };
@@ -166,8 +163,6 @@
 				2417EF2C223FA012002C4E33 /* YPTableViewCell.h */,
 				2417EF2D223FA012002C4E33 /* YPTableViewCell.m */,
 				2417EF2E223FA012002C4E33 /* YPTableViewCell.xib */,
-				2411D2182240BD3C005DFA19 /* ReporderView.h */,
-				2411D2192240BD3C005DFA19 /* ReporderView.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				241213482242258500F91647 /* like@2x.png */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -392,7 +387,6 @@
 			files = (
 				2411D21D2240BE17005DFA19 /* BaseTableViewCell.m in Sources */,
 				2417EF2F223FA012002C4E33 /* YPTableViewCell.m in Sources */,
-				2411D21A2240BD3C005DFA19 /* ReporderView.m in Sources */,
 				6003F59E195388D20070C39A /* YPAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* YPViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

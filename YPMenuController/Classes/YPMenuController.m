@@ -1,6 +1,5 @@
 //
 //  YPMenuController.m
-//  Pods-YPMenuController_Example
 //
 //  Created by Yaping Liu on 3/18/19.
 //
@@ -8,6 +7,7 @@
 #import "YPMenuController.h"
 #import "YPMenuWindow.h"
 #import "YPCalloutBar.h"
+
 
 @interface YPMenuController ()
 
@@ -60,6 +60,7 @@
 - (void)menuVisibleInView:(UIView *)targetView
                targetRect:(CGRect)targetRect
                  animated:(BOOL)animated {
+    [self menuInvisibleWithAnimated:NO];
     self.targetRect = targetRect;
     self.targetView = targetView;
     self.menuWindow.hidden = NO;
@@ -75,6 +76,7 @@
     [self.calloutBar layoutBarItems];
     self.calloutBar.alpha = 0.0;
     [self.menuWindow addSubview:self.calloutBar];
+    self->_menuVisible = YES;
     if (animated) {
         NSTimeInterval time =  0.16;
         [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
@@ -84,18 +86,34 @@
 }
 
 - (void)menuInvisibleWithAnimated:(BOOL)animated {
-    self.calloutBar.alpha = 1;
     if (animated) {
+        YPCalloutBar *animatePeriodBar = self.calloutBar;
+        self.calloutBar.alpha = 1;
         NSTimeInterval time =  0.2;
-        [UIView animateWithDuration:time delay:0.2 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
+        [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
             self.calloutBar.alpha = 0;
+            
         } completion:^(BOOL finished) {
-            self.menuWindow.hidden = YES;
+            if (animatePeriodBar == self.calloutBar) {
+                self.menuWindow.hidden = YES;
+                if (self.calloutBar) {
+                    [self.calloutBar removeFromSuperview];
+                    self.calloutBar = nil;
+                }
+                self->_menuVisible = NO;
+            }
+        }];
+
+    }else{
+        self.menuWindow.hidden = YES;
+        if (self.calloutBar) {
             [self.calloutBar removeFromSuperview];
             self.calloutBar = nil;
-        }];
+        }
+        self->_menuVisible = NO;
     }
 }
+
 
 - (void)performMenuSelector:(SEL)sel {
     if (self.targetView && [self.targetView respondsToSelector:sel]) {

@@ -1,6 +1,5 @@
 //
 //  YPMenuItem.h
-//  Pods-YPMenuController_Example
 //
 //  Created by Yaping Liu on 3/20/19.
 //

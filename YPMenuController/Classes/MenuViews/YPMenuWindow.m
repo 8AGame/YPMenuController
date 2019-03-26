@@ -1,6 +1,5 @@
 //
 //  YPMenuWindow.m
-//  Pods-YPMenuController_Example
 //
 //  Created by Yaping Liu on 3/18/19.
 //

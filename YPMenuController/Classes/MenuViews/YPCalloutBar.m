@@ -1,6 +1,5 @@
 //
 //  YPCalloutBar.m
-//  Pods-YPMenuController_Example
 //
 //  Created by Yaping Liu on 3/19/19.
 //
@@ -76,8 +75,12 @@
         self.menuType = menuType;
         self.menuItems = menuItems;
         self.userSetDirection = arrowDirection;
-        self.barHeight = 60;
-
+        if (menuType == YPMenuControllerImageTopTitleBottom ||
+            menuType == YPMenuControllerTitleTopImageBottom) {
+            self.barHeight = 80;
+        }else{
+            self.barHeight = 60;
+        }
     }
     return self;
 
@@ -88,20 +91,15 @@
     if (self.menuType == YPMenuControllerCustom) {
         return;
     }
-    CGFloat maxWidth = kBarMaxWidth;
     CGFloat totalWidth = 0;
-
     self.menuItemBtns = [[NSMutableArray alloc] init];
     for (YPMenuItem *item in self.menuItems) {
         //image and title style
         UIButton *menuBtn = [self createBarButtonWithMenuItem:item];
-        CGFloat maxContent = maxWidth - kSkipBtnWidth *2;
-        CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, kContentHeight)];
-        menuBtn.frame = CGRectMake(0, 0, size.width, size.height);
-        totalWidth += size.width;
+        totalWidth += CGRectGetWidth(menuBtn.frame);
         [self.menuItemBtns addObject:menuBtn];
     }
-    if (totalWidth <= maxWidth) {
+    if (totalWidth <= kBarMaxWidth) {
         [self layoutMenusWhetherHasMore:NO towardRight:NO];
 
     }else{
@@ -133,7 +131,7 @@
     NSInteger length = NSMaxRange(range);
     for (; startLoc < length; startLoc++) {
         UIButton *perBtn = self.menuItemBtns[startLoc];
-        perBtn.frame = CGRectMake(totalWidth, contentMarginTop, CGRectGetWidth(perBtn.frame), kContentHeight);
+        perBtn.frame = CGRectMake(totalWidth, contentMarginTop, CGRectGetWidth(perBtn.frame), CGRectGetHeight(perBtn.frame));
         [self addSubview:perBtn];
         totalWidth += CGRectGetWidth(perBtn.frame);
         //line view
@@ -192,8 +190,8 @@
     objc_setAssociatedObject(menuBtn, @selector(itemButtonAction:), menuItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (menuItem.title &&
         (self.menuType == YPMenuControllerSystem ||
-        self.menuType == YPMenuControllerImageUpTitleDown ||
-        self.menuType == YPMenuControllerTitleUpImageDown ||
+        self.menuType == YPMenuControllerImageTopTitleBottom ||
+        self.menuType == YPMenuControllerTitleTopImageBottom ||
         self.menuType == YPMenuControllerImageLeftTitleRight ||
         self.menuType == YPMenuControllerTitleLeftImageRight)) {
         
@@ -202,29 +200,35 @@
     }
     if (menuItem.image &&
         (self.menuType == YPMenuControllerImageOnly ||
-        self.menuType == YPMenuControllerImageUpTitleDown ||
-        self.menuType == YPMenuControllerTitleUpImageDown ||
+        self.menuType == YPMenuControllerImageTopTitleBottom ||
+        self.menuType == YPMenuControllerTitleTopImageBottom ||
         self.menuType == YPMenuControllerImageLeftTitleRight ||
         self.menuType == YPMenuControllerTitleLeftImageRight)) {
         
         [menuBtn setImage:menuItem.image forState:UIControlStateNormal];
     }
+    CGFloat maxContent = kBarMaxWidth - kSkipBtnWidth * 2;
+    CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, kContentHeight)];
+    menuBtn.frame = CGRectMake(0, 0, size.width, kContentHeight);
+
     switch (self.menuType) {
         case YPMenuControllerImageOnly:
             
             break;
-        case YPMenuControllerImageUpTitleDown:
+        case YPMenuControllerImageTopTitleBottom:
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(menuBtn.imageView.intrinsicContentSize.height + 5, - menuBtn.imageView.intrinsicContentSize.width, 0, 0);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width / 2, menuBtn.titleLabel.intrinsicContentSize.height + 5, - menuBtn.titleLabel.intrinsicContentSize.width / 2);
             break;
-        case YPMenuControllerTitleUpImageDown:
+        case YPMenuControllerTitleTopImageBottom:
             
             break;
         case YPMenuControllerImageLeftTitleRight:
-            [menuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -6, 0, 0)];
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
 
             break;
         case YPMenuControllerTitleLeftImageRight:
-//            [menuBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -6, 0, 0)];
-
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -menuBtn.imageView.intrinsicContentSize.width-5, 0, menuBtn.imageView.intrinsicContentSize.width);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width, 0, -menuBtn.titleLabel.intrinsicContentSize.width-5);
             break;
         case YPMenuControllerSystem:
             
@@ -339,7 +343,6 @@
     CGFloat middleX = CGRectGetMidX(self.transformRect);
     self.backupLayer = [CAShapeLayer layer];
     self.backupLayer.backgroundColor = [UIColor clearColor].CGColor;
-    UIBezierPath *path = [UIBezierPath bezierPath];
     CGFloat width = CGRectGetWidth(self.bounds);
     //rectangle
     //y
@@ -357,7 +360,7 @@
     }
 
     CGRect pathRect = CGRectMake(0, backupY, width, kContentHeight);
-    path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:kBackupLayerCornerRadius];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:kBackupLayerCornerRadius];
     //triangle
     middleX -= self.frame.origin.x;
     [path moveToPoint:CGPointMake(middleX, triangleStartY)];

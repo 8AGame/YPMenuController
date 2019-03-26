@@ -1,6 +1,5 @@
 //
 //  YPMenuComponets.h
-//  Pods
 //
 //  Created by Yaping Liu on 3/20/19.
 //
@@ -13,8 +12,8 @@ typedef NS_ENUM(NSInteger, YPMenuControllerType) {
     YPMenuControllerImageOnly,
     YPMenuControllerTitleLeftImageRight,
     YPMenuControllerImageLeftTitleRight,
-    YPMenuControllerImageUpTitleDown,
-    YPMenuControllerTitleUpImageDown,
+    YPMenuControllerImageTopTitleBottom,
+    YPMenuControllerTitleTopImageBottom,
     YPMenuControllerCustom
 };
 

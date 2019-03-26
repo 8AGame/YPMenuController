@@ -11,10 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YPTableViewCell : BaseTableViewCell
-
-@property (weak, nonatomic) IBOutlet UIButton *clickBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *clickBtn2;
 @property (weak, nonatomic) IBOutlet UIButton *systemBtn;
 @property (weak, nonatomic) IBOutlet UIButton *sys2Btn;
 

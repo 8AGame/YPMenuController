@@ -1,6 +1,5 @@
 //
 //  YPMenuController.h
-//  Pods-YPMenuController_Example
 //
 //  Created by Yaping Liu on 3/18/19.
 //
@@ -21,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, readonly) NSArray<YPMenuItem *> *menuItems;
 
 @property(nonatomic, assign, readonly) YPMenuControllerType menuType;
+
+@property(nonatomic, assign, readonly) BOOL menuVisible;
 
 @property(nonatomic, assign) YPMenuControllerArrowDirection arrowDirection;
 

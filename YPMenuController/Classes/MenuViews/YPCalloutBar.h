@@ -1,6 +1,6 @@
 //
 //  YPCalloutBar.h
-//  Pods-YPMenuController_Example
+
 //
 //  Created by Yaping Liu on 3/19/19.
 //
