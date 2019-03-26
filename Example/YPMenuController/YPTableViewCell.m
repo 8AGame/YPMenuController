@@ -84,49 +84,86 @@
 
 
 - (IBAction)systemStyleAction:(id)sender {
-    [self popupYPMenu:YPMenuControllerSystem sender:sender];
+
+    [self popupYPMenuSender:sender config:nil];
 }
+
 - (IBAction)onlyImageStyleAction:(id)sender {
-    [self popupYPMenu:YPMenuControllerImageOnly sender:sender];
-
+    
+    YPMenuStyleConfig *config = [YPMenuStyleConfig defaultStyleConfig];
+    config.menuType = YPMenuControllerImageOnly;
+    
+    [self popupYPMenuSender:sender config:config];
 }
+
 - (IBAction)LeftImgRightTitleStyleAction:(id)sender {
-    [self popupYPMenu:YPMenuControllerTitleLeftImageRight sender:sender];
-
+    YPMenuStyleConfig *config = [YPMenuStyleConfig defaultStyleConfig];
+    config.menuType = YPMenuControllerTitleLeftImageRight;
+    [self popupYPMenuSender:sender config:config];
 }
+
 - (IBAction)rightImgLeftTitleStyleAction:(id)sender {
-    [self popupYPMenu:YPMenuControllerImageLeftTitleRight sender:sender];
-
+    
+    YPMenuStyleConfig *config = [[YPMenuStyleConfig alloc] init];
+    config.menuType = YPMenuControllerImageLeftTitleRight;
+    config.barBackgroundColor = [UIColor whiteColor];
+    config.titleColor = [UIColor blackColor];
+    config.triangleColor = [UIColor blackColor];
+    config.separatorLineColor = [UIColor blackColor];
+    
+    [self popupYPMenuSender:sender config:config];
 }
+
 - (IBAction)topImgBottomTitleStyleAction:(id)sender {
-    [self popupYPMenu:YPMenuControllerImageTopTitleBottom sender:sender];
 
+    YPMenuStyleConfig *config = [YPMenuStyleConfig defaultStyleConfig];
+    config.menuType = YPMenuControllerImageTopTitleBottom;
+    [self popupYPMenuSender:sender config:config];
+
+    [self popupYPMenuSender:sender config:config];
 }
+
 - (IBAction)bottomImgTopTitleStyleAction:(id)sender {
-    [self popupYPMenu:YPMenuControllerTitleTopImageBottom sender:sender];
-
+    
+    YPMenuStyleConfig *config = [[YPMenuStyleConfig alloc] init];
+    config.menuType = YPMenuControllerTitleTopImageBottom;
+    config.barBackgroundColor = [UIColor whiteColor];
+    config.titleColor = [UIColor blackColor];
+    config.triangleColor = [UIColor blackColor];
+    config.separatorLineColor = [UIColor blackColor];
+    
+    [self popupYPMenuSender:sender config:config];
 }
+
 - (IBAction)customStyleAction:(id)sender {
-    [self popupYPMenu:YPMenuControllerCustom sender:sender];
-
+    YPMenuStyleConfig *config = [[YPMenuStyleConfig alloc] init];
+    config.menuType = YPMenuControllerCustom;
+    config.barBackgroundColor = [UIColor whiteColor];
+    config.titleColor = [UIColor blackColor];
+    config.triangleColor = [UIColor blackColor];
+    config.separatorLineColor = [UIColor blackColor];
+    
+    [self popupYPMenuSender:sender config:config];
 }
 
 
-- (void)popupYPMenu:(YPMenuControllerType)type sender:(UIView *)sender{
-    YPMenuItem *item1 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome3) title:@"第一" image:[UIImage imageNamed:@"like"]];
+- (void)popupYPMenuSender:(UIView *)sender
+                   config:(YPMenuStyleConfig *)config {
+    
+    YPMenuItem *item1 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome3) title:@"第一" image:[UIImage imageNamed:@"share"]];
     YPMenuItem *item2 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第二" image:[UIImage imageNamed:@"like"]];
-    YPMenuItem *item3 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome:) title:@"第三" image:[UIImage imageNamed:@"like"]];
+    YPMenuItem *item3 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome:) title:@"第三" image:[UIImage imageNamed:@"share"]];
     YPMenuItem *item4 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第四" image:[UIImage imageNamed:@"like"]];
     YPMenuItem *item5 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome:) title:@"第五第五第五第五" image:[UIImage imageNamed:@"like"]];
-    YPMenuItem *item6 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第六个" image:[UIImage imageNamed:@"like"]];
+    YPMenuItem *item6 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第六个" image:[UIImage imageNamed:@"share"]];
     YPMenuItem *item7 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome:) title:@"第七第七第七第七" image:[UIImage imageNamed:@"like"]];
-    YPMenuItem *item8 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第八" image:[UIImage imageNamed:@"like"]];
+    YPMenuItem *item8 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第八" image:[UIImage imageNamed:@"share"]];
     YPMenuItem *item9 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome:) title:@"第九" image:[UIImage imageNamed:@"like"]];
     YPMenuItem *item10 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第十个" image:[UIImage imageNamed:@"like"]];
-    
     NSArray *menus = @[item1, item2, item3, item4, item5, item6,item7,item8,item9,item10];
-    [[YPMenuController sharedMenuController] setMenuItems:menus menuType:type];
-
+    
+    [YPMenuController sharedMenuController].styleConfig = config;
+    [YPMenuController sharedMenuController].menuItems = menus;
     [[YPMenuController sharedMenuController] menuVisibleInView:self
                                                     targetRect:sender.frame
                                                       animated:YES];

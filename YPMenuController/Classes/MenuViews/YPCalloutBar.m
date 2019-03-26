@@ -4,9 +4,12 @@
 //  Created by Yaping Liu on 3/19/19.
 //
 
+
 #import "YPCalloutBar.h"
-#import "YPMenuItem.h"
 #import <objc/runtime.h>
+
+#import "YPMenuItem.h"
+#import "YPMenuStyleConfig.h"
 
 /// Bar frame
 #define kBarMarginLeft                      10
@@ -20,7 +23,7 @@
 #define kSpacingBetweenTitleAndImage        5
 
 #define kContentHeight \
-((self.barHeight) - (kContentTowardTargetViewMargin) - (kContentTowardRearMargin))
+((self.styleConfig.barHeight) - (kContentTowardTargetViewMargin) - (kContentTowardRearMargin))
 
 #define kBarMaxWidth  \
 ((CGRectGetWidth([UIScreen mainScreen].bounds))-(kBarMarginLeft)*2)
@@ -54,13 +57,11 @@
 
 @property (nonatomic, strong) YPMenuNode *currentNode;
 
-@property (nonatomic, assign) YPMenuControllerType menuType;
-
 @property (nonatomic, strong) NSMutableArray *menuItemBtns;
 
 @property (nonatomic, strong) NSArray<YPMenuItem *> *menuItems;
 
-@property(nonatomic, assign) YPMenuControllerArrowDirection userSetDirection;
+@property (nonatomic, strong) YPMenuStyleConfig *styleConfig;
 
 @end
 
@@ -68,21 +69,14 @@
 
 - (instancetype)initWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
                     transformRect:(CGRect)transformRect
-                         menuType:(YPMenuControllerType)menuType
-                   arrowDirection:(YPMenuControllerArrowDirection)arrowDirection {
+                      styleConfig:(YPMenuStyleConfig *)styleConfig {
+    
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.transformRect = transformRect;
-        self.menuType = menuType;
         self.menuItems = menuItems;
-        self.userSetDirection = arrowDirection;
-        if (menuType == YPMenuControllerImageTopTitleBottom ||
-            menuType == YPMenuControllerTitleTopImageBottom) {
-            self.barHeight = 80;
-        }else{
-            self.barHeight = 60;
-        }
+        self.styleConfig = styleConfig;
     }
     return self;
 
@@ -90,7 +84,7 @@
 
 - (void)layoutBarItems {
     //custom style
-    if (self.menuType == YPMenuControllerCustom) {
+    if (self.styleConfig.menuType== YPMenuControllerCustom) {
         return;
     }
     CGFloat totalWidth = 0;
@@ -191,29 +185,33 @@
     [menuBtn addTarget:self action:@selector(itemButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     objc_setAssociatedObject(menuBtn, @selector(itemButtonAction:), menuItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (menuItem.title &&
-        (self.menuType == YPMenuControllerSystem ||
-        self.menuType == YPMenuControllerImageTopTitleBottom ||
-        self.menuType == YPMenuControllerTitleTopImageBottom ||
-        self.menuType == YPMenuControllerImageLeftTitleRight ||
-        self.menuType == YPMenuControllerTitleLeftImageRight)) {
+        (self.styleConfig.menuType== YPMenuControllerSystem ||
+        self.styleConfig.menuType== YPMenuControllerImageTopTitleBottom ||
+        self.styleConfig.menuType== YPMenuControllerTitleTopImageBottom ||
+        self.styleConfig.menuType== YPMenuControllerImageLeftTitleRight ||
+        self.styleConfig.menuType== YPMenuControllerTitleLeftImageRight)) {
         
-        [menuBtn setTitle:menuItem.title forState:UIControlStateNormal];
-        menuBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            [menuBtn setTitle:menuItem.title forState:UIControlStateNormal];
+            menuBtn.titleLabel.font = self.styleConfig.titleFont;
+            [menuBtn setTitleColor:self.styleConfig.titleColor forState:UIControlStateNormal];
     }
     if (menuItem.image &&
-        (self.menuType == YPMenuControllerImageOnly ||
-        self.menuType == YPMenuControllerImageTopTitleBottom ||
-        self.menuType == YPMenuControllerTitleTopImageBottom ||
-        self.menuType == YPMenuControllerImageLeftTitleRight ||
-        self.menuType == YPMenuControllerTitleLeftImageRight)) {
-        
-        [menuBtn setImage:menuItem.image forState:UIControlStateNormal];
+        (self.styleConfig.menuType== YPMenuControllerImageOnly ||
+        self.styleConfig.menuType== YPMenuControllerImageTopTitleBottom ||
+        self.styleConfig.menuType== YPMenuControllerTitleTopImageBottom ||
+        self.styleConfig.menuType== YPMenuControllerImageLeftTitleRight ||
+        self.styleConfig.menuType== YPMenuControllerTitleLeftImageRight)) {
+            [menuBtn setImage:menuItem.image forState:UIControlStateNormal];
     }
     CGFloat maxContent = kBarMaxWidth - kSkipBtnWidth * 2;
     CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, kContentHeight)];
-    menuBtn.frame = CGRectMake(0, 0, size.width, kContentHeight);
-
-    switch (self.menuType) {
+    CGFloat btnWidth = size.width;
+    if (btnWidth > maxContent) {
+        btnWidth = maxContent;
+        menuBtn.clipsToBounds = YES;
+    }
+    menuBtn.frame = CGRectMake(0, 0, btnWidth, kContentHeight);
+    switch (self.styleConfig.menuType) {
         case YPMenuControllerImageOnly:
             
             break;
@@ -258,7 +256,7 @@
 - (UIView *)lineViewWithXValue:(CGFloat)xValue {
     CGFloat contentMarginTop = [self getBarContentMarginTop];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, contentMarginTop, 1, kContentHeight)];
-    lineView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    lineView.backgroundColor = [self.styleConfig.separatorLineColor colorWithAlphaComponent:0.8];
     return lineView;
 }
 
@@ -277,9 +275,9 @@
         barY = CGRectGetMaxY(self.transformRect);
 
     } else if ([self getRealArrowDirection] == YPMenuControllerArrowDown) {
-        barY = CGRectGetMinY(self.transformRect) - self.barHeight;
+        barY = CGRectGetMinY(self.transformRect) - self.styleConfig.barHeight;
     }
-    self.frame = CGRectMake(barX, barY, barWidth, self.barHeight);
+    self.frame = CGRectMake(barX, barY, barWidth, self.styleConfig.barHeight);
     [self addBackupLayer];
 }
 
@@ -338,7 +336,7 @@
     [path addLineToPoint:linePoint1];
     [path addLineToPoint:linePoint2];
     [path closePath];
-    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(context, self.styleConfig.triangleColor.CGColor);
     [path fill];
     //image
     UIImage *triangleImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -367,7 +365,7 @@
     CGFloat triangleStartY = 0;
     CGFloat triangleEndY = 0;
     if ([self getRealArrowDirection] == YPMenuControllerArrowDown) {
-        triangleStartY = self.barHeight - kTriangleArrowsTowardContentMargin;
+        triangleStartY = self.styleConfig.barHeight - kTriangleArrowsTowardContentMargin;
         triangleEndY = backupY + kContentHeight;
         
     }else if([self getRealArrowDirection] == YPMenuControllerArrowUp) {
@@ -385,7 +383,7 @@
 
     self.backupLayer.path = path.CGPath;
     self.backupLayer.frame = self.bounds;
-    self.backupLayer.fillColor = [UIColor colorWithRed:31/255 green:31/288 blue:31/255 alpha:0.96].CGColor;
+    self.backupLayer.fillColor = self.styleConfig.barBackgroundColor.CGColor;
     [self.layer insertSublayer:self.backupLayer atIndex:0];
 }
 
@@ -411,14 +409,14 @@
 }
 
 - (YPMenuControllerArrowDirection)getRealArrowDirection {
-    if (self.userSetDirection == YPMenuControllerArrowDefault) {
-        CGFloat barY = CGRectGetMinY(self.transformRect) - self.barHeight;
+    if (self.styleConfig.arrowDirection == YPMenuControllerArrowDefault) {
+        CGFloat barY = CGRectGetMinY(self.transformRect) - self.styleConfig.barHeight;
         if (barY <= 0) {
             return YPMenuControllerArrowUp;
         }else{
             return YPMenuControllerArrowDown;
         }
     }
-    return self.userSetDirection;
+    return self.styleConfig.arrowDirection;
 }
 @end

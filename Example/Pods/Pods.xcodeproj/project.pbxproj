@@ -8,24 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		04DB889390164B6A1A890B1C0AA8FC08 /* Pods-YPMenuController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D9A82506F0CBDE9AA1E0527AAF9835 /* Pods-YPMenuController_Example-dummy.m */; };
-		1A7E599EF7144AE5EC551BAE9486E798 /* YPMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = A007934A1FE1F250184FFFCB17A185E4 /* YPMenuController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1BC95D59EB1837B4C36397AD6DB1DBBE /* YPMenuWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 88F998C501F30314DC45CDDA2F8EA579 /* YPMenuWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0CFD343A214F51E66B6619A4314F40DA /* YPMenuWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149205CCC6E2C23550D26074C14E4E2 /* YPMenuWindow.m */; };
+		309308CDC347F53A6CA2FBC6C414CDEC /* YPMenuStyleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CA98AF1AB9AC3BEFFA80AD67E9B80B /* YPMenuStyleConfig.m */; };
 		3BA2EE5B9B659ED904C3F796C10A51E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CB39E715FBCDAA142E6513E126200A /* Foundation.framework */; };
-		421B759E616DF20D39D86B053CCEA3E0 /* YPMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BB9E2C3F39BFB401D996C6F9B936B02D /* YPMenuItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		509B8838AF1FE9A67F9640D3F82F5C24 /* YPMenuController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FA057F78CE6B606C63084CC427FE0DD3 /* YPMenuController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		581AC1C29937217CFFECF3495BB6BF48 /* Pods-YPMenuController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BD06BB35CB795727C82BC782341120C /* Pods-YPMenuController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58BD391DB1DD20E8C5782C206A624922 /* YPMenuController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B743F8590076D70687C6D2149E5FA8E /* YPMenuController-dummy.m */; };
+		65558D4712527564CB1CFC579B976767 /* YPMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = E0406F425250641E50990BD296F25491 /* YPMenuController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		682414498A4F45431D29641D7AA23654 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CB39E715FBCDAA142E6513E126200A /* Foundation.framework */; };
-		76FE9BCE63DCC8387F7F08E28FF486FF /* YPMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E91815A4DA3F5728EB081213DCB5D0 /* YPMenuItem.m */; };
+		6E03487B43674F424D3FCCDB3C7F8A96 /* YPMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43047356F95CD848DB8EE7B2DC412EB /* YPMenuController.m */; };
+		83F4AC1AA3846863E747FA3F4E3B3164 /* YPMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 19A0DE5C39B39D7D93E28A6FCD15A73B /* YPMenuItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89FEEB1B5F84821DC8CCE1F3447A3C59 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CB39E715FBCDAA142E6513E126200A /* Foundation.framework */; };
-		ACA41FEECF774B2462382E29963739AA /* YPMenuComponets.h in Headers */ = {isa = PBXBuildFile; fileRef = A8FF92A2A67587D5B2BA03D5156D8DC2 /* YPMenuComponets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		986EE98A299FC1D39D7CC468F3BE4137 /* YPMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC768104080EFCFBBB04EA02D9972FC /* YPMenuItem.m */; };
+		B010944EDAE0884251C7911E813F3D01 /* YPCalloutBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E03766C9186D2A8FD67B06EFB0196DDF /* YPCalloutBar.m */; };
 		B4AAE8F72A9B3A9C32B03A0B6ADE175A /* Pods-YPMenuController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2E05B0ABB3DCE18F497A1D7420704A /* Pods-YPMenuController_Tests-dummy.m */; };
-		B60ABB07242E030349C6C4AD3C97201E /* YPMenuItem+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = E307FC5C0D40D596987134E190173132 /* YPMenuItem+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA4CDA62BA3A8643F960DBE38713F191 /* Pods-YPMenuController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EB0BE3DCEA7164FBFB817C76B9C85A3 /* Pods-YPMenuController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BACF3DBC044292D176DA806BADB39628 /* YPCalloutBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDAF5ED79816827DB841C937A8268A2 /* YPCalloutBar.m */; };
-		D2F28B580492716CDF22816AA51600B9 /* YPMenuWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D84E3A53C7FC2BA2B9901B29CF2632 /* YPMenuWindow.m */; };
-		D397BD9CDF9625FE3DC01CCC8CBC6E74 /* YPCalloutBar.h in Headers */ = {isa = PBXBuildFile; fileRef = BA53775135CE268A5D08CF4E007D27FB /* YPCalloutBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE7C088A701D14009E1FD9ED10ACD222 /* YPMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB53A5DF7D986199133FDB4E38394510 /* YPMenuController.m */; };
-		E35E8163C90D66054EE50A4AF187B050 /* YPMenuController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9395C4AC413782D67608096CEE46A28F /* YPMenuController-dummy.m */; };
+		BFA4E851D74904249D09D0B238C6AE1F /* YPMenuWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = B3705EF0CE2429D49A0F028639D0EB16 /* YPMenuWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0AB92371C5E0DB39020D4E870FB809F /* YPMenuController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CA37DCB92D6E6F2F4D2C6E2DA99C9CC /* YPMenuController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2C68E9302AFB538E4449B2AAB70FCBF /* YPMenuStyleConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = D5F49F14E7FE804E79FECCED07DC4F1A /* YPMenuStyleConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F2D951D08FAEF2D16CE8E2837A73D79F /* YPMenuComponets.h in Headers */ = {isa = PBXBuildFile; fileRef = E6F8959F55A4B010738F5D123BD5F4E3 /* YPMenuComponets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F34F087D8FCF273EC4D638B6015ADBE6 /* YPCalloutBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E16E28580C5E89DD92E7073C019419E /* YPCalloutBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FDEA152B60712F8530D1022BCD1AB8ED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF2A2B0720AE923C22BED3192888BE0 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,47 +48,48 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		142A55E9556A468C0FC2FCF8433E5776 /* YPMenuController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = YPMenuController.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		1DB4BF88361AB89A1564592A5BB1C872 /* YPMenuController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = YPMenuController.modulemap; sourceTree = "<group>"; };
+		0149205CCC6E2C23550D26074C14E4E2 /* YPMenuWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YPMenuWindow.m; sourceTree = "<group>"; };
+		0E16E28580C5E89DD92E7073C019419E /* YPCalloutBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YPCalloutBar.h; sourceTree = "<group>"; };
+		19A0DE5C39B39D7D93E28A6FCD15A73B /* YPMenuItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YPMenuItem.h; path = YPMenuController/Classes/YPMenuItem.h; sourceTree = "<group>"; };
 		2328D29EBF8D1DC60CA7544786742DA1 /* Pods-YPMenuController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YPMenuController_Example.release.xcconfig"; sourceTree = "<group>"; };
-		270C787A28134E366DE6AD27CECF1996 /* Pods_YPMenuController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_YPMenuController_Example.framework; path = "Pods-YPMenuController_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		270C787A28134E366DE6AD27CECF1996 /* Pods_YPMenuController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YPMenuController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29529CD5BE589C99EDB8CB3803845C8C /* Pods-YPMenuController_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YPMenuController_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		295EAD8C951E029C3E2E7C5EE0867976 /* YPMenuController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "YPMenuController-Info.plist"; sourceTree = "<group>"; };
 		29B0D774129E3AE4C27E567B82B021EE /* Pods-YPMenuController_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YPMenuController_Example-frameworks.sh"; sourceTree = "<group>"; };
 		2E1B50F6799388A8E2B45A8432927978 /* Pods-YPMenuController_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YPMenuController_Tests-Info.plist"; sourceTree = "<group>"; };
 		2EB0BE3DCEA7164FBFB817C76B9C85A3 /* Pods-YPMenuController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YPMenuController_Example-umbrella.h"; sourceTree = "<group>"; };
-		40A123113F842CC32A09AE54288A8CCA /* YPMenuController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = YPMenuController.framework; path = YPMenuController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40A123113F842CC32A09AE54288A8CCA /* YPMenuController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YPMenuController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40CB39E715FBCDAA142E6513E126200A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		43B8EF691B2320464A194DF5D5CE7B35 /* YPMenuController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "YPMenuController-Info.plist"; sourceTree = "<group>"; };
 		4532019D69B230E11551E29117FDDB29 /* Pods-YPMenuController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YPMenuController_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		4C594176148FFE4F3A160CA3B8248AD2 /* YPMenuController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YPMenuController-prefix.pch"; sourceTree = "<group>"; };
 		5BD06BB35CB795727C82BC782341120C /* Pods-YPMenuController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YPMenuController_Tests-umbrella.h"; sourceTree = "<group>"; };
+		5FC768104080EFCFBBB04EA02D9972FC /* YPMenuItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YPMenuItem.m; path = YPMenuController/Classes/YPMenuItem.m; sourceTree = "<group>"; };
 		6043F3E996AE6DDB0840070B8CF622A8 /* Pods-YPMenuController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YPMenuController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		63D84E3A53C7FC2BA2B9901B29CF2632 /* YPMenuWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YPMenuWindow.m; sourceTree = "<group>"; };
+		6CA37DCB92D6E6F2F4D2C6E2DA99C9CC /* YPMenuController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YPMenuController-umbrella.h"; sourceTree = "<group>"; };
 		6E2538CF24198DD6283ABD4899F395E8 /* Pods-YPMenuController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YPMenuController_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		7C8D58430A7D1B74C585B6BC59E56B5A /* Pods_YPMenuController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_YPMenuController_Tests.framework; path = "Pods-YPMenuController_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C8D58430A7D1B74C585B6BC59E56B5A /* Pods_YPMenuController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YPMenuController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD4227D1646B2F26D0E2B421B68E710 /* Pods-YPMenuController_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-YPMenuController_Tests.modulemap"; sourceTree = "<group>"; };
-		8266DECAA67458C8AC266319BD78BBE2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		88F998C501F30314DC45CDDA2F8EA579 /* YPMenuWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YPMenuWindow.h; sourceTree = "<group>"; };
-		9395C4AC413782D67608096CEE46A28F /* YPMenuController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YPMenuController-dummy.m"; sourceTree = "<group>"; };
+		8B743F8590076D70687C6D2149E5FA8E /* YPMenuController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YPMenuController-dummy.m"; sourceTree = "<group>"; };
+		97986B7D1BE617801957A2388B8A328E /* YPMenuController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = YPMenuController.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9D19D557118B46E0F77BF63914BC1FEC /* Pods-YPMenuController_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YPMenuController_Example-Info.plist"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D363DCF727843E1949EF944B16522C5 /* YPMenuController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = YPMenuController.modulemap; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9FE554B51F96A675C96F55A4826743A0 /* Pods-YPMenuController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-YPMenuController_Example.modulemap"; sourceTree = "<group>"; };
-		A007934A1FE1F250184FFFCB17A185E4 /* YPMenuController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YPMenuController.h; path = YPMenuController/Classes/YPMenuController.h; sourceTree = "<group>"; };
+		A43047356F95CD848DB8EE7B2DC412EB /* YPMenuController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YPMenuController.m; path = YPMenuController/Classes/YPMenuController.m; sourceTree = "<group>"; };
+		A5A9D1E325FE85E4ADDFADE5A0E78ED2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A892173ACCA263298BB30FEBFD15E28F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A8E51B901DB883443C2172F81D8E7C23 /* Pods-YPMenuController_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YPMenuController_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A8FF92A2A67587D5B2BA03D5156D8DC2 /* YPMenuComponets.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YPMenuComponets.h; sourceTree = "<group>"; };
 		B0D9A82506F0CBDE9AA1E0527AAF9835 /* Pods-YPMenuController_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YPMenuController_Example-dummy.m"; sourceTree = "<group>"; };
-		B5A55E4BB14BD969F8668A079D6F0C71 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		B7A8CF30EF7B4223BB3EE5329BCB1073 /* YPMenuController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YPMenuController-prefix.pch"; sourceTree = "<group>"; };
-		BA53775135CE268A5D08CF4E007D27FB /* YPCalloutBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YPCalloutBar.h; sourceTree = "<group>"; };
-		BB53A5DF7D986199133FDB4E38394510 /* YPMenuController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YPMenuController.m; path = YPMenuController/Classes/YPMenuController.m; sourceTree = "<group>"; };
-		BB9E2C3F39BFB401D996C6F9B936B02D /* YPMenuItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YPMenuItem.h; path = YPMenuController/Classes/YPMenuItem.h; sourceTree = "<group>"; };
-		BE2B2719A087815F2C4BBB04C90CA03A /* YPMenuController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YPMenuController.xcconfig; sourceTree = "<group>"; };
+		B21BEDD8989C5E6CAC345EFF496718FF /* YPMenuController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YPMenuController.xcconfig; sourceTree = "<group>"; };
+		B3705EF0CE2429D49A0F028639D0EB16 /* YPMenuWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YPMenuWindow.h; sourceTree = "<group>"; };
 		CBADA0D09EBC348905DB792CD0D66FAD /* Pods-YPMenuController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YPMenuController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF2E05B0ABB3DCE18F497A1D7420704A /* Pods-YPMenuController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YPMenuController_Tests-dummy.m"; sourceTree = "<group>"; };
-		E307FC5C0D40D596987134E190173132 /* YPMenuItem+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YPMenuItem+Private.h"; sourceTree = "<group>"; };
-		EBDAF5ED79816827DB841C937A8268A2 /* YPCalloutBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YPCalloutBar.m; sourceTree = "<group>"; };
+		D5F49F14E7FE804E79FECCED07DC4F1A /* YPMenuStyleConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YPMenuStyleConfig.h; sourceTree = "<group>"; };
+		E03766C9186D2A8FD67B06EFB0196DDF /* YPCalloutBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YPCalloutBar.m; sourceTree = "<group>"; };
+		E0406F425250641E50990BD296F25491 /* YPMenuController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YPMenuController.h; path = YPMenuController/Classes/YPMenuController.h; sourceTree = "<group>"; };
+		E6F8959F55A4B010738F5D123BD5F4E3 /* YPMenuComponets.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = YPMenuComponets.h; sourceTree = "<group>"; };
 		ECF2A2B0720AE923C22BED3192888BE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		F4E91815A4DA3F5728EB081213DCB5D0 /* YPMenuItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YPMenuItem.m; path = YPMenuController/Classes/YPMenuItem.m; sourceTree = "<group>"; };
-		FA057F78CE6B606C63084CC427FE0DD3 /* YPMenuController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YPMenuController-umbrella.h"; sourceTree = "<group>"; };
+		F5CA98AF1AB9AC3BEFFA80AD67E9B80B /* YPMenuStyleConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = YPMenuStyleConfig.m; sourceTree = "<group>"; };
 		FE3795BBF860B84907EDD452F0062272 /* Pods-YPMenuController_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YPMenuController_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,38 +122,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		103DFF5B184D107B82BF40BB9D340C49 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				A8FF92A2A67587D5B2BA03D5156D8DC2 /* YPMenuComponets.h */,
-				E307FC5C0D40D596987134E190173132 /* YPMenuItem+Private.h */,
-			);
-			name = Utility;
-			path = YPMenuController/Classes/Utility;
-			sourceTree = "<group>";
-		};
 		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				E169A450ED27AC725DF52953F66D11E0 /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1E6D7B49E8A0C1BCDF32F04116BD4961 /* YPMenuController */ = {
-			isa = PBXGroup;
-			children = (
-				A007934A1FE1F250184FFFCB17A185E4 /* YPMenuController.h */,
-				BB53A5DF7D986199133FDB4E38394510 /* YPMenuController.m */,
-				BB9E2C3F39BFB401D996C6F9B936B02D /* YPMenuItem.h */,
-				F4E91815A4DA3F5728EB081213DCB5D0 /* YPMenuItem.m */,
-				5EC280E1008518270331E9BBCE489811 /* MenuViews */,
-				B880FED412599D4D207B420F25DEDB27 /* Pod */,
-				CED117D660F8145BC9A05E56E33E3503 /* Support Files */,
-				103DFF5B184D107B82BF40BB9D340C49 /* Utility */,
-			);
-			name = YPMenuController;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		3EFF03F8826902A9FDF4D9F706328519 /* Targets Support Files */ = {
@@ -173,16 +149,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5EC280E1008518270331E9BBCE489811 /* MenuViews */ = {
+		5D2784FE5C8ED0BAEEECD987172C0E2A /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				BA53775135CE268A5D08CF4E007D27FB /* YPCalloutBar.h */,
-				EBDAF5ED79816827DB841C937A8268A2 /* YPCalloutBar.m */,
-				88F998C501F30314DC45CDDA2F8EA579 /* YPMenuWindow.h */,
-				63D84E3A53C7FC2BA2B9901B29CF2632 /* YPMenuWindow.m */,
+				E6F8959F55A4B010738F5D123BD5F4E3 /* YPMenuComponets.h */,
+				D5F49F14E7FE804E79FECCED07DC4F1A /* YPMenuStyleConfig.h */,
+				F5CA98AF1AB9AC3BEFFA80AD67E9B80B /* YPMenuStyleConfig.m */,
 			);
-			name = MenuViews;
-			path = YPMenuController/Classes/MenuViews;
+			name = Utility;
+			path = YPMenuController/Classes/Utility;
 			sourceTree = "<group>";
 		};
 		8D22EAB019333CB7FD3CE5746662DC89 /* Pods-YPMenuController_Example */ = {
@@ -202,14 +177,30 @@
 			path = "Target Support Files/Pods-YPMenuController_Example";
 			sourceTree = "<group>";
 		};
-		B880FED412599D4D207B420F25DEDB27 /* Pod */ = {
+		94517C334E233296906EDB5BBA24593A /* MenuViews */ = {
 			isa = PBXGroup;
 			children = (
-				B5A55E4BB14BD969F8668A079D6F0C71 /* LICENSE */,
-				8266DECAA67458C8AC266319BD78BBE2 /* README.md */,
-				142A55E9556A468C0FC2FCF8433E5776 /* YPMenuController.podspec */,
+				0E16E28580C5E89DD92E7073C019419E /* YPCalloutBar.h */,
+				E03766C9186D2A8FD67B06EFB0196DDF /* YPCalloutBar.m */,
+				B3705EF0CE2429D49A0F028639D0EB16 /* YPMenuWindow.h */,
+				0149205CCC6E2C23550D26074C14E4E2 /* YPMenuWindow.m */,
 			);
-			name = Pod;
+			name = MenuViews;
+			path = YPMenuController/Classes/MenuViews;
+			sourceTree = "<group>";
+		};
+		99F41A2E4A0E5E52BDF00EA651BD44B1 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9D363DCF727843E1949EF944B16522C5 /* YPMenuController.modulemap */,
+				B21BEDD8989C5E6CAC345EFF496718FF /* YPMenuController.xcconfig */,
+				8B743F8590076D70687C6D2149E5FA8E /* YPMenuController-dummy.m */,
+				295EAD8C951E029C3E2E7C5EE0867976 /* YPMenuController-Info.plist */,
+				4C594176148FFE4F3A160CA3B8248AD2 /* YPMenuController-prefix.pch */,
+				6CA37DCB92D6E6F2F4D2C6E2DA99C9CC /* YPMenuController-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/YPMenuController";
 			sourceTree = "<group>";
 		};
 		CA15CB80B9009B4D27747B6BA4903C05 /* Pods-YPMenuController_Tests */ = {
@@ -228,20 +219,6 @@
 			path = "Target Support Files/Pods-YPMenuController_Tests";
 			sourceTree = "<group>";
 		};
-		CED117D660F8145BC9A05E56E33E3503 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1DB4BF88361AB89A1564592A5BB1C872 /* YPMenuController.modulemap */,
-				BE2B2719A087815F2C4BBB04C90CA03A /* YPMenuController.xcconfig */,
-				9395C4AC413782D67608096CEE46A28F /* YPMenuController-dummy.m */,
-				43B8EF691B2320464A194DF5D5CE7B35 /* YPMenuController-Info.plist */,
-				B7A8CF30EF7B4223BB3EE5329BCB1073 /* YPMenuController-prefix.pch */,
-				FA057F78CE6B606C63084CC427FE0DD3 /* YPMenuController-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/YPMenuController";
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
@@ -256,9 +233,25 @@
 		D98EBD74C60C20343025416737EB2332 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1E6D7B49E8A0C1BCDF32F04116BD4961 /* YPMenuController */,
+				DBD6A78F24919FE8CF28418D4A79E398 /* YPMenuController */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		DBD6A78F24919FE8CF28418D4A79E398 /* YPMenuController */ = {
+			isa = PBXGroup;
+			children = (
+				E0406F425250641E50990BD296F25491 /* YPMenuController.h */,
+				A43047356F95CD848DB8EE7B2DC412EB /* YPMenuController.m */,
+				19A0DE5C39B39D7D93E28A6FCD15A73B /* YPMenuItem.h */,
+				5FC768104080EFCFBBB04EA02D9972FC /* YPMenuItem.m */,
+				94517C334E233296906EDB5BBA24593A /* MenuViews */,
+				5D2784FE5C8ED0BAEEECD987172C0E2A /* Utility */,
+				EB4927C4A27964A5CC66789FA2E65159 /* Pod */,
+				99F41A2E4A0E5E52BDF00EA651BD44B1 /* Support Files */,
+			);
+			name = YPMenuController;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		E169A450ED27AC725DF52953F66D11E0 /* iOS */ = {
@@ -268,6 +261,16 @@
 				ECF2A2B0720AE923C22BED3192888BE0 /* UIKit.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		EB4927C4A27964A5CC66789FA2E65159 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				A892173ACCA263298BB30FEBFD15E28F /* LICENSE */,
+				A5A9D1E325FE85E4ADDFADE5A0E78ED2 /* README.md */,
+				97986B7D1BE617801957A2388B8A328E /* YPMenuController.podspec */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,17 +292,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B50CC92391B00D4B6973C3C25DA181B2 /* Headers */ = {
+		BB3C8B7BA99D991F4AE697AFAFBCE7FD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D397BD9CDF9625FE3DC01CCC8CBC6E74 /* YPCalloutBar.h in Headers */,
-				ACA41FEECF774B2462382E29963739AA /* YPMenuComponets.h in Headers */,
-				509B8838AF1FE9A67F9640D3F82F5C24 /* YPMenuController-umbrella.h in Headers */,
-				1A7E599EF7144AE5EC551BAE9486E798 /* YPMenuController.h in Headers */,
-				B60ABB07242E030349C6C4AD3C97201E /* YPMenuItem+Private.h in Headers */,
-				421B759E616DF20D39D86B053CCEA3E0 /* YPMenuItem.h in Headers */,
-				1BC95D59EB1837B4C36397AD6DB1DBBE /* YPMenuWindow.h in Headers */,
+				F34F087D8FCF273EC4D638B6015ADBE6 /* YPCalloutBar.h in Headers */,
+				F2D951D08FAEF2D16CE8E2837A73D79F /* YPMenuComponets.h in Headers */,
+				D0AB92371C5E0DB39020D4E870FB809F /* YPMenuController-umbrella.h in Headers */,
+				65558D4712527564CB1CFC579B976767 /* YPMenuController.h in Headers */,
+				83F4AC1AA3846863E747FA3F4E3B3164 /* YPMenuItem.h in Headers */,
+				E2C68E9302AFB538E4449B2AAB70FCBF /* YPMenuStyleConfig.h in Headers */,
+				BFA4E851D74904249D09D0B238C6AE1F /* YPMenuWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,8 +332,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 593DDB25CE477B7B168A790EC6D17C18 /* Build configuration list for PBXNativeTarget "YPMenuController" */;
 			buildPhases = (
-				B50CC92391B00D4B6973C3C25DA181B2 /* Headers */,
-				9699DE7BB856915ACF913BE8D4864B09 /* Sources */,
+				BB3C8B7BA99D991F4AE697AFAFBCE7FD /* Headers */,
+				D9C2E1E07EDE6487CE3FFE8672E8E9EA /* Sources */,
 				B680EE67E8D8C0641BE6149DB5B7A7FD /* Frameworks */,
 				ABB7C3B01AFC93D1564609937A15EA56 /* Resources */,
 			);
@@ -431,15 +434,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9699DE7BB856915ACF913BE8D4864B09 /* Sources */ = {
+		D9C2E1E07EDE6487CE3FFE8672E8E9EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BACF3DBC044292D176DA806BADB39628 /* YPCalloutBar.m in Sources */,
-				E35E8163C90D66054EE50A4AF187B050 /* YPMenuController-dummy.m in Sources */,
-				DE7C088A701D14009E1FD9ED10ACD222 /* YPMenuController.m in Sources */,
-				76FE9BCE63DCC8387F7F08E28FF486FF /* YPMenuItem.m in Sources */,
-				D2F28B580492716CDF22816AA51600B9 /* YPMenuWindow.m in Sources */,
+				B010944EDAE0884251C7911E813F3D01 /* YPCalloutBar.m in Sources */,
+				58BD391DB1DD20E8C5782C206A624922 /* YPMenuController-dummy.m in Sources */,
+				6E03487B43674F424D3FCCDB3C7F8A96 /* YPMenuController.m in Sources */,
+				986EE98A299FC1D39D7CC468F3BE4137 /* YPMenuItem.m in Sources */,
+				309308CDC347F53A6CA2FBC6C414CDEC /* YPMenuStyleConfig.m in Sources */,
+				0CFD343A214F51E66B6619A4314F40DA /* YPMenuWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,8 +518,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -688,7 +691,7 @@
 		};
 		EAD8515EE8EE679193FC5C5F391819AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BE2B2719A087815F2C4BBB04C90CA03A /* YPMenuController.xcconfig */;
+			baseConfigurationReference = B21BEDD8989C5E6CAC345EFF496718FF /* YPMenuController.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -719,7 +722,7 @@
 		};
 		ECAB56789A38F325BF2F6CE2FA280DAA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BE2B2719A087815F2C4BBB04C90CA03A /* YPMenuController.xcconfig */;
+			baseConfigurationReference = B21BEDD8989C5E6CAC345EFF496718FF /* YPMenuController.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

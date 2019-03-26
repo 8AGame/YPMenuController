@@ -47,14 +47,17 @@
                 return NO;
             }
         };
+        _styleConfig = [YPMenuStyleConfig defaultStyleConfig];
     }
     return self;
 }
 
-- (void)setMenuItems:(NSArray<YPMenuItem *> *)menuItems
-            menuType:(YPMenuControllerType)menuType {
-    _menuItems = menuItems;
-    _menuType = menuType;
+-(void)setStyleConfig:(YPMenuStyleConfig *)styleConfig {
+    if (!styleConfig) {
+        _styleConfig = [YPMenuStyleConfig defaultStyleConfig];
+    }else{
+        _styleConfig = styleConfig;
+    }
 }
 
 - (void)menuVisibleInView:(UIView *)targetView
@@ -67,8 +70,7 @@
     CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
     self.calloutBar = [[YPCalloutBar alloc] initWithMenuItems:self.menuItems
                                                 transformRect:transformRect
-                                                     menuType:self.menuType
-                                               arrowDirection:self.arrowDirection];
+                                                  styleConfig:self.styleConfig];
     __weak __typeof(self)weakSelf = self;
     self.calloutBar.triggerClickBlock = ^(SEL  _Nonnull action) {
         [weakSelf performMenuSelector:action];

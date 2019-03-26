@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "YPMenuComponets.h"
 
-@class YPMenuItem;
+@class YPMenuItem, YPMenuStyleConfig;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,17 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
                     transformRect:(CGRect)transformRect
-                         menuType:(YPMenuControllerType)menuType
-                   arrowDirection:(YPMenuControllerArrowDirection)arrowDirection;
+                      styleConfig:(YPMenuStyleConfig *)styleConfig;
 
 - (void)layoutBarItems;
 
 @property (nonatomic, copy) void (^triggerClickBlock)(SEL action);
-
-
-@property (nonatomic, assign) CGFloat barHeight;
-
-
 
 @end
 

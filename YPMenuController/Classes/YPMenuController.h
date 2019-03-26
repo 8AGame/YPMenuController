@@ -5,7 +5,7 @@
 //
 
 #import "YPMenuItem.h"
-#import "YPMenuComponets.h"
+#import "YPMenuStyleConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,21 +17,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (YPMenuController *)sharedMenuController;
 
-@property(nonatomic, strong, readonly) NSArray<YPMenuItem *> *menuItems;
-
-@property(nonatomic, assign, readonly) YPMenuControllerType menuType;
-
 @property(nonatomic, assign, readonly) BOOL menuVisible;
 
-@property(nonatomic, assign) YPMenuControllerArrowDirection arrowDirection;
+@property(nonatomic, strong) YPMenuStyleConfig *styleConfig;
 
-- (void)setMenuItems:(NSArray<YPMenuItem *> *)menuItems
-            menuType:(YPMenuControllerType)menuType;
+@property(nonatomic, copy) NSArray<YPMenuItem *> *menuItems;
 
+//Make menu visible.
 - (void)menuVisibleInView:(UIView *)targetView
                targetRect:(CGRect)targetRect
                  animated:(BOOL)animated;
 
+//Make menu invisible.
 - (void)menuInvisibleWithAnimated:(BOOL)animated;
 
 @end
