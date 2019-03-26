@@ -17,6 +17,8 @@
 
 #define kContentTowardRearMargin            9
 
+#define kSpacingBetweenTitleAndImage        5
+
 #define kContentHeight \
 ((self.barHeight) - (kContentTowardTargetViewMargin) - (kContentTowardRearMargin))
 
@@ -215,24 +217,30 @@
         case YPMenuControllerImageOnly:
             
             break;
-        case YPMenuControllerImageTopTitleBottom:
-            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(menuBtn.imageView.intrinsicContentSize.height + 5, - menuBtn.imageView.intrinsicContentSize.width, 0, 0);
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width / 2, menuBtn.titleLabel.intrinsicContentSize.height + 5, - menuBtn.titleLabel.intrinsicContentSize.width / 2);
-            break;
-        case YPMenuControllerTitleTopImageBottom:
             
+        case YPMenuControllerImageTopTitleBottom:
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(menuBtn.imageView.intrinsicContentSize.height + kSpacingBetweenTitleAndImage, - menuBtn.imageView.intrinsicContentSize.width, 0, 0);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width / 2, menuBtn.titleLabel.intrinsicContentSize.height + kSpacingBetweenTitleAndImage, - menuBtn.titleLabel.intrinsicContentSize.width / 2);
             break;
+            
+        case YPMenuControllerTitleTopImageBottom:
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(-menuBtn.imageView.intrinsicContentSize.height - kSpacingBetweenTitleAndImage,  -menuBtn.imageView.intrinsicContentSize.width, 0, 0);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width / 2, -menuBtn.titleLabel.intrinsicContentSize.height - kSpacingBetweenTitleAndImage,  menuBtn.titleLabel.intrinsicContentSize.width / 2);
+            break;
+            
         case YPMenuControllerImageLeftTitleRight:
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -kSpacingBetweenTitleAndImage, 0, 0);
 
             break;
-        case YPMenuControllerTitleLeftImageRight:
-            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -menuBtn.imageView.intrinsicContentSize.width-5, 0, menuBtn.imageView.intrinsicContentSize.width);
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width, 0, -menuBtn.titleLabel.intrinsicContentSize.width-5);
-            break;
-        case YPMenuControllerSystem:
             
+        case YPMenuControllerTitleLeftImageRight:
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -menuBtn.imageView.intrinsicContentSize.width-kSpacingBetweenTitleAndImage, 0, menuBtn.imageView.intrinsicContentSize.width);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width, 0, -menuBtn.titleLabel.intrinsicContentSize.width-kSpacingBetweenTitleAndImage);
+            break;
+            
+        case YPMenuControllerSystem:
         default:
+            
             break;
     }
     return menuBtn;
@@ -306,35 +314,43 @@
 }
 
 - (UIButton *)createSkipButtonForIsLeft:(BOOL)isLeft {
-    UIImage *resultImage = nil;
+
     CGSize size = CGSizeMake(10, 10);
-    UIColor *tintColor = [UIColor whiteColor];
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    UIBezierPath * path = [UIBezierPath bezierPath];
+    //points
+    CGPoint moveToPoint = CGPointZero;
+    CGPoint linePoint1 = CGPointZero;
+    CGPoint linePoint2 = CGPointZero;
     if (isLeft) {
-        [path moveToPoint:CGPointMake(0, size.height/2)];
-        [path addLineToPoint:CGPointMake(size.width , 0)];
-        [path addLineToPoint:CGPointMake(size.width, size.height)];
-        [path closePath];
+        moveToPoint = CGPointMake(0, size.height/2);
+        linePoint1 = CGPointMake(size.width, 0);
+        linePoint2 = CGPointMake(size.width, size.height);
+
     } else {
-        [path moveToPoint:CGPointMake(0, size.height)];
-        [path addLineToPoint:CGPointMake(0 , 0)];
-        [path addLineToPoint:CGPointMake(size.width, size.height/2)];
-        [path closePath];
+        moveToPoint = CGPointMake(0, size.height);
+        linePoint1 = CGPointMake(0 , 0);
+        linePoint2 = CGPointMake(size.width, size.height/2);
     }
-    CGContextSetFillColorWithColor(context, tintColor.CGColor);
+    //bezier path
+    UIBezierPath * path = [UIBezierPath bezierPath];
+    [path moveToPoint:moveToPoint];
+    [path addLineToPoint:linePoint1];
+    [path addLineToPoint:linePoint2];
+    [path closePath];
+    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     [path fill];
-    
-    resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    //image
+    UIImage *triangleImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
     UIButton *skipButton = [UIButton buttonWithType:UIButtonTypeCustom];
     skipButton.backgroundColor = [UIColor clearColor];
     skipButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    [skipButton setImage:resultImage forState:UIControlStateNormal];
+    [skipButton setImage:triangleImage forState:UIControlStateNormal];
     SEL sel = isLeft ? @selector(leftSikpAction) : @selector(rightSikpAction);
     [skipButton addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
+    
     return skipButton;
 }
 
