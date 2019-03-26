@@ -88,7 +88,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMT-Ae-VKL">
-                        <rect key="frame" x="20" y="315" width="360" height="40"/>
+                        <rect key="frame" x="20" y="320" width="360" height="40"/>
                         <color key="backgroundColor" red="0.11477323339999999" green="0.67995977969999999" blue="0.95417592009999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="xY4-JV-w4F"/>
@@ -126,7 +126,7 @@
                     <constraint firstItem="e0P-n9-rpt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="JA9-BU-dPv"/>
                     <constraint firstAttribute="trailing" secondItem="gRe-PK-sQO" secondAttribute="trailing" constant="20" id="MfE-Sv-XFR"/>
                     <constraint firstItem="9eQ-rk-o1J" firstAttribute="top" secondItem="gRe-PK-sQO" secondAttribute="bottom" constant="10" id="NGJ-2q-OnG"/>
-                    <constraint firstItem="SMT-Ae-VKL" firstAttribute="top" secondItem="kZR-xK-1Kd" secondAttribute="bottom" constant="15" id="Qvb-Qs-8Gu"/>
+                    <constraint firstItem="SMT-Ae-VKL" firstAttribute="top" secondItem="kZR-xK-1Kd" secondAttribute="bottom" constant="20" id="Qvb-Qs-8Gu"/>
                     <constraint firstAttribute="trailing" secondItem="YGd-al-7kX" secondAttribute="trailing" constant="20" id="R1U-KW-hpw"/>
                     <constraint firstAttribute="trailing" secondItem="e0P-n9-rpt" secondAttribute="trailing" constant="200" id="R9X-k2-9oF"/>
                     <constraint firstItem="YGd-al-7kX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="200" id="fSI-s4-0xA"/>

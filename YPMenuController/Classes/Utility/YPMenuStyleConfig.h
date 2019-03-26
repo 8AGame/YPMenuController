@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *barShadowColor;
 
 #pragma mark -- Menu button properties
+#pragma mark The properties in this section is invalid when `menuType` is `YPMenuControllerCustom`
 /**
  Spacing between image and title.
  The default is 5.

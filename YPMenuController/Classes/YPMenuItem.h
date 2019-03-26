@@ -22,10 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
                                       title:(nullable NSString *)title
                                       image:(nullable UIImage *)image NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initTitleAndImageWithAction:(SEL)action
-                                 customView:(UIView *)customView NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCustomView:(UIView *)customView NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, assign, readonly) SEL action;
+@property (nonatomic, assign, nullable, readonly) SEL action;
 
 @property (nonatomic, strong, nullable, readonly) NSString *title;
 

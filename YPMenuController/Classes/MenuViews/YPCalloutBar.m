@@ -55,7 +55,7 @@
 
 @property (nonatomic, strong) YPMenuNode *currentNode;
 
-@property (nonatomic, strong) NSMutableArray *menuItemBtns;
+@property (nonatomic, strong) NSMutableArray *menuItemViews;
 
 @property (nonatomic, strong) NSArray<YPMenuItem *> *menuItems;
 
@@ -81,17 +81,21 @@
 }
 
 - (void)layoutBarItems {
-    //custom style
-    if (self.styleConfig.menuType== YPMenuControllerCustom) {
-        return;
-    }
     CGFloat totalWidth = 0;
-    self.menuItemBtns = [[NSMutableArray alloc] init];
+    self.menuItemViews = [[NSMutableArray alloc] init];
     for (YPMenuItem *item in self.menuItems) {
-        //image and title style
-        UIButton *menuBtn = [self createBarButtonWithMenuItem:item];
-        totalWidth += CGRectGetWidth(menuBtn.frame);
-        [self.menuItemBtns addObject:menuBtn];
+        UIView *menuView = nil;
+        //custom style
+        if (self.styleConfig.menuType== YPMenuControllerCustom) {
+            menuView = item.customView;
+            
+        }else{
+            //image and title style
+            menuView = [self createBarButtonWithMenuItem:item];
+        }
+        if (!menuView) continue;
+        totalWidth += CGRectGetWidth(menuView.frame);
+        [self.menuItemViews addObject:menuView];
     }
     if (totalWidth <= kBarMaxWidth) {
         [self layoutMenusWhetherHasMore:NO towardRight:NO];
@@ -107,7 +111,7 @@
     CGFloat contentMarginTop = [self getBarContentMarginTop];
 
     //menu range
-    NSRange range = NSMakeRange(0, self.menuItemBtns.count);
+    NSRange range = NSMakeRange(0, self.menuItemViews.count);
     if (hasMore) {
         range = [self calculateShowRangeForHasMoreWithTowardRight:towardRight];
     }
@@ -120,20 +124,24 @@
         [self addSubview:[self lineViewWithXValue:totalWidth]];
     }
     
-    //menus button
+    //menus views
     NSInteger startLoc = range.location;
     NSInteger length = NSMaxRange(range);
     for (; startLoc < length; startLoc++) {
-        UIButton *perBtn = self.menuItemBtns[startLoc];
-        perBtn.frame = CGRectMake(totalWidth, contentMarginTop, CGRectGetWidth(perBtn.frame), CGRectGetHeight(perBtn.frame));
-        [self addSubview:perBtn];
-        totalWidth += CGRectGetWidth(perBtn.frame);
-        //line view
-        [self addSubview:[self lineViewWithXValue:totalWidth]];
+        UIView *perView = self.menuItemViews[startLoc];
+        perView.frame = CGRectMake(totalWidth, contentMarginTop, CGRectGetWidth(perView.frame), CGRectGetHeight(perView.frame));
+        [self addSubview:perView];
+        totalWidth += CGRectGetWidth(perView.frame);
+        if (startLoc < length - 1) {
+            //line view
+            [self addSubview:[self lineViewWithXValue:totalWidth]];
+        }
     }
     
     //right skip button
     if (hasMore) {
+        //line view
+        [self addSubview:[self lineViewWithXValue:totalWidth]];
         self.rightSkipBtn.enabled = YES;
         self.rightSkipBtn.frame = CGRectMake(totalWidth, contentMarginTop, kSkipBtnWidth, kContentHeight);
         [self addSubview:self.rightSkipBtn];
@@ -159,9 +167,9 @@
     
     CGFloat curTotal = 0;
     NSInteger endLoc = startLoc;
-    for (; endLoc < self.menuItemBtns.count; endLoc++) {
-        UIButton *btn = self.menuItemBtns[endLoc];
-        curTotal += btn.frame.size.width;
+    for (; endLoc < self.menuItemViews.count; endLoc++) {
+        UIView *perView = self.menuItemViews[endLoc];
+        curTotal += perView.frame.size.width;
         if (curTotal > restWidth) break;
     }
     YPMenuNode *node = [[YPMenuNode alloc] init];

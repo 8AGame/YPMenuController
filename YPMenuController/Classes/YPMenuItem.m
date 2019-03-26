@@ -32,11 +32,9 @@
     return self;
 }
 
-- (instancetype)initTitleAndImageWithAction:(SEL)action
-                                 customView:(UIView *)customView {
+- (instancetype)initWithCustomView:(UIView *)customView {
     self = [super init];
     if (self) {
-        self->_action = action;
         self->_customView = customView;
     }
     return self;
