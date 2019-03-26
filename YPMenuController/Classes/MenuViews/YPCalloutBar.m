@@ -220,12 +220,12 @@
             
         case YPMenuControllerImageTopTitleBottom:
             menuBtn.titleEdgeInsets = UIEdgeInsetsMake(menuBtn.imageView.intrinsicContentSize.height + kSpacingBetweenTitleAndImage, - menuBtn.imageView.intrinsicContentSize.width, 0, 0);
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width / 2, menuBtn.titleLabel.intrinsicContentSize.height + kSpacingBetweenTitleAndImage, - menuBtn.titleLabel.intrinsicContentSize.width / 2);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width/2, menuBtn.titleLabel.intrinsicContentSize.height+kSpacingBetweenTitleAndImage, - menuBtn.titleLabel.intrinsicContentSize.width/2);
             break;
             
         case YPMenuControllerTitleTopImageBottom:
-            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(-menuBtn.imageView.intrinsicContentSize.height - kSpacingBetweenTitleAndImage,  -menuBtn.imageView.intrinsicContentSize.width, 0, 0);
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width / 2, -menuBtn.titleLabel.intrinsicContentSize.height - kSpacingBetweenTitleAndImage,  menuBtn.titleLabel.intrinsicContentSize.width / 2);
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(-menuBtn.imageView.intrinsicContentSize.height-kSpacingBetweenTitleAndImage,  -menuBtn.imageView.intrinsicContentSize.width, 0, 0);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width/2, -menuBtn.titleLabel.intrinsicContentSize.height-kSpacingBetweenTitleAndImage,  menuBtn.titleLabel.intrinsicContentSize.width/2);
             break;
             
         case YPMenuControllerImageLeftTitleRight:
