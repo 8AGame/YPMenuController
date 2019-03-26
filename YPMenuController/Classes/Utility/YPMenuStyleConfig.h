@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YPMenuStyleConfig : NSObject
+#pragma mark -- Bar properties
 /**
  Menu type.
  The default is `YPMenuControllerSystem`.
@@ -32,15 +33,40 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) UIColor *barBackgroundColor;
 /**
+ Bar shadow color.
+ The default is grayColor.
+ */
+@property (nonatomic, strong) UIColor *barShadowColor;
+
+#pragma mark -- Menu button properties
+/**
+ Spacing between image and title.
+ The default is 5.
+ */
+@property (nonatomic, assign) CGFloat contentSpace;
+/**
+ Menu button content edge insets.
+ The default is UIEdgeInsetsMake(0, 15, 0, 15).
+ */
+@property (nonatomic, assign) UIEdgeInsets menuContentEdge;
+/**
  Title color.
  The default is whiteColor.
  */
 @property (nonatomic, strong) UIColor *titleColor;
 /**
+ Touch highlight color.
+ The default is lightGrayColor.
+ */
+@property (nonatomic, strong) UIColor *backHighlightColor;
+
+/**
  Title font.
  The default is system font with 14 size.
  */
 @property (nonatomic, strong) UIFont *titleFont;
+
+#pragma mark -- Other properties
 /**
  Skip button triangle image color.
  The default is whiteColor.

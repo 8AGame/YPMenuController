@@ -36,6 +36,7 @@
 {
     self = [super init];
     if (self) {
+        _menuVisible = NO;
         self.menuWindow = [[YPMenuWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         __weak __typeof(self)weakSelf = self;
         self.menuWindow.touchPointInsideCanRespond = ^BOOL(CGPoint point) {
@@ -47,7 +48,7 @@
                 return NO;
             }
         };
-        _styleConfig = [[YPMenuStyleConfig alloc] init];
+        self.styleConfig = [[YPMenuStyleConfig alloc] init];
     }
     return self;
 }
@@ -63,6 +64,9 @@
 - (void)menuVisibleInView:(UIView *)targetView
                targetRect:(CGRect)targetRect
                  animated:(BOOL)animated {
+    
+    if (!self.menuItems || self.menuItems.count < 1) return;
+        
     [self menuInvisibleWithAnimated:NO];
     self.targetRect = targetRect;
     self.targetView = targetView;

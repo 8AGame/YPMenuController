@@ -71,7 +71,7 @@
     config.barBackgroundColor = [UIColor whiteColor];
     config.titleColor = [UIColor orangeColor];
     config.skipTriangleColor = [UIColor blueColor];
-    config.separatorLineColor = [UIColor blackColor];
+    config.separatorLineColor = [UIColor lightGrayColor];
     
     [self popupYPMenuSender:sender config:config];
 }

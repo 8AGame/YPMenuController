@@ -20,6 +20,10 @@
         self.titleColor = [UIColor whiteColor];
         self.skipTriangleColor = [UIColor whiteColor];
         self.separatorLineColor = [UIColor whiteColor];
+        self.barShadowColor = [UIColor grayColor];
+        self.contentSpace = 5;
+        self.menuContentEdge =  UIEdgeInsetsMake(0, 15, 0, 15);
+        self.backHighlightColor = [UIColor lightGrayColor];
     }
     return self;
 }

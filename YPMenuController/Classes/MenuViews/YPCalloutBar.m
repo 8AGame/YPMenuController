@@ -31,8 +31,6 @@
 /// Backup layer frame
 #define kBackupLayerCornerRadius            6
 
-#define kTriangleArrowsTowardContentMargin  5
-
 #define kTriangleRadiusWidth                8
 
 @interface YPMenuNode: NSObject
@@ -181,8 +179,10 @@
     
     UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     menuBtn.backgroundColor = [UIColor clearColor];
-    menuBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
+    menuBtn.contentEdgeInsets = self.styleConfig.menuContentEdge;
     [menuBtn addTarget:self action:@selector(itemButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [menuBtn addTarget:self action:@selector(changeBackgroundColorAction:) forControlEvents:UIControlEventAllTouchEvents];
+
     objc_setAssociatedObject(menuBtn, @selector(itemButtonAction:), menuItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (menuItem.title &&
         (self.styleConfig.menuType== YPMenuControllerSystem ||
@@ -244,6 +244,13 @@
     return menuBtn;
 }
 
+- (void)changeBackgroundColorAction:(id)sender {
+    if (((UIButton *)sender).highlighted) {
+        [(UIButton *)sender setBackgroundColor:self.styleConfig.backHighlightColor];
+    }else{
+        [(UIButton *)sender setBackgroundColor:[UIColor clearColor]];
+    }
+}
 - (void)itemButtonAction:(id)sender {
     YPMenuItem *item = objc_getAssociatedObject(sender, @selector(itemButtonAction:));
     if (item && [item isKindOfClass:YPMenuItem.class]) {
@@ -283,19 +290,25 @@
 
 #pragma mark -- Skip buttons
 - (void)leftSikpAction {
+    
     [self clearAllSubViews];
     [self layoutMenusWhetherHasMore:YES towardRight:NO];
 }
 
 - (void)rightSikpAction {
+    
     [self clearAllSubViews];
     [self layoutMenusWhetherHasMore:YES towardRight:YES];
 }
 - (void)clearAllSubViews {
     for (UIView *subView in self.subviews) {
-        [subView removeFromSuperview];
+        if (subView.superview) {
+            [subView removeFromSuperview];
+        }
     }
-    [self.backupLayer removeFromSuperlayer];
+    if (self.backupLayer.superlayer) {
+        [self.backupLayer removeFromSuperlayer];
+    }
 }
 - (UIButton *)leftSkipBtn {
     if (!_leftSkipBtn) {
@@ -348,7 +361,6 @@
     [skipButton setImage:triangleImage forState:UIControlStateNormal];
     SEL sel = isLeft ? @selector(leftSikpAction) : @selector(rightSikpAction);
     [skipButton addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
-    
     return skipButton;
 }
 
@@ -365,11 +377,11 @@
     CGFloat triangleStartY = 0;
     CGFloat triangleEndY = 0;
     if ([self getRealArrowDirection] == YPMenuControllerArrowDown) {
-        triangleStartY = self.styleConfig.barHeight - kTriangleArrowsTowardContentMargin;
+        triangleStartY = self.styleConfig.barHeight - self.styleConfig.contentSpace;
         triangleEndY = backupY + kContentHeight;
         
     }else if([self getRealArrowDirection] == YPMenuControllerArrowUp) {
-        triangleStartY = kTriangleArrowsTowardContentMargin;
+        triangleStartY = self.styleConfig.contentSpace;
         triangleEndY = backupY;
     }
 
@@ -384,6 +396,9 @@
     self.backupLayer.path = path.CGPath;
     self.backupLayer.frame = self.bounds;
     self.backupLayer.fillColor = self.styleConfig.barBackgroundColor.CGColor;
+    self.backupLayer.shadowColor = self.styleConfig.barShadowColor.CGColor;
+    self.backupLayer.shadowOpacity = 1;
+    self.backupLayer.shadowOffset = CGSizeMake(0, 0);
     [self.layer insertSublayer:self.backupLayer atIndex:0];
 }
 
