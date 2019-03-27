@@ -90,7 +90,7 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
     [self.menuWindow addSubview:self.calloutBar];
     self->_menuVisible = YES;
     if (animated) {
-        NSTimeInterval time =  0.16;
+        NSTimeInterval time =  0.3;
         [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
             self.calloutBar.alpha = 1;
         } completion:^(BOOL finished) {
@@ -100,11 +100,13 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 }
 
 - (void)menuInvisibleWithAnimated:(BOOL)animated {
+    if (!self->_menuVisible) return;
+
     if (animated) {
         [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
         YPCalloutBar *animatePeriodBar = self.calloutBar;
         self.calloutBar.alpha = 1;
-        NSTimeInterval time =  0.2;
+        NSTimeInterval time =  0.3;
         [UIView animateWithDuration:time delay:self.styleConfig.barDismissDelayInterval options:UIViewAnimationOptionCurveEaseInOut  animations:^{
             self.calloutBar.alpha = 0;
             
@@ -116,7 +118,6 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
         }];
 
     }else{
-        if (!self->_menuVisible) return;
         [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
         [self dismissMenuController];
     }
