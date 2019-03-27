@@ -46,4 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+UIKIT_EXTERN NSNotificationName const YPMenuControllerWillShowMenuNotification;
+UIKIT_EXTERN NSNotificationName const YPMenuControllerDidShowMenuNotification;
+UIKIT_EXTERN NSNotificationName const YPMenuControllerWillHideMenuNotification;
+UIKIT_EXTERN NSNotificationName const YPMenuControllerDidHideMenuNotification;
+
 NS_ASSUME_NONNULL_END

@@ -22,7 +22,7 @@ pod 'YPMenuController'
 
 ## Author
 
-liuyaping, lypJTD@163.com
+ lypJTD@163.com
 
 ## License
 

@@ -8,6 +8,11 @@
 #import "YPMenuWindow.h"
 #import "YPCalloutBar.h"
 
+NSNotificationName const YPMenuControllerWillShowMenuNotification = @"YPMenuControllerWillShowMenuNotification";
+NSNotificationName const YPMenuControllerDidShowMenuNotification = @"YPMenuControllerDidShowMenuNotification";
+NSNotificationName const YPMenuControllerWillHideMenuNotification = @"YPMenuControllerWillHideMenuNotification";
+NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuControllerDidHideMenuNotification";
+
 
 @interface YPMenuController ()
 
@@ -36,12 +41,12 @@
 {
     self = [super init];
     if (self) {
-        _menuVisible = NO;
         self.menuWindow = [[YPMenuWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         __weak __typeof(self)weakSelf = self;
         self.menuWindow.touchPointInsideCanRespond = ^BOOL(CGPoint point) {
+            CGPoint inCallBarPoint = [weakSelf.menuWindow convertPoint:point toView:weakSelf.calloutBar];
             if (weakSelf.calloutBar &&
-                CGRectContainsPoint(weakSelf.calloutBar.frame, point)) {
+                CGRectContainsPoint(weakSelf.calloutBar.contentRect, inCallBarPoint)) {
                 return YES;
             }else{
                 [weakSelf menuInvisibleWithAnimated:YES];
@@ -66,7 +71,7 @@
                  animated:(BOOL)animated {
     
     if (!self.menuItems || self.menuItems.count < 1) return;
-        
+    
     [self menuInvisibleWithAnimated:NO];
     self.targetRect = targetRect;
     self.targetView = targetView;
@@ -80,6 +85,7 @@
         [weakSelf performMenuSelector:action];
     };
     [self.calloutBar layoutBarItems];
+    [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillShowMenuNotification object:self];
     self.calloutBar.alpha = 0.0;
     [self.menuWindow addSubview:self.calloutBar];
     self->_menuVisible = YES;
@@ -87,12 +93,15 @@
         NSTimeInterval time =  0.16;
         [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
             self.calloutBar.alpha = 1;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerDidShowMenuNotification object:self];
+        }];
     }
 }
 
 - (void)menuInvisibleWithAnimated:(BOOL)animated {
     if (animated) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
         YPCalloutBar *animatePeriodBar = self.calloutBar;
         self.calloutBar.alpha = 1;
         NSTimeInterval time =  0.2;
@@ -101,25 +110,26 @@
             
         } completion:^(BOOL finished) {
             if (animatePeriodBar == self.calloutBar) {
-                self.menuWindow.hidden = YES;
-                if (self.calloutBar) {
-                    [self.calloutBar removeFromSuperview];
-                    self.calloutBar = nil;
-                }
-                self->_menuVisible = NO;
+                if (!self->_menuVisible) return;
+                [self dismissMenuController];
             }
         }];
 
     }else{
-        self.menuWindow.hidden = YES;
-        if (self.calloutBar) {
-            [self.calloutBar removeFromSuperview];
-            self.calloutBar = nil;
-        }
-        self->_menuVisible = NO;
+        if (!self->_menuVisible) return;
+        [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
+        [self dismissMenuController];
     }
 }
-
+- (void)dismissMenuController {
+    self.menuWindow.hidden = YES;
+    if (self.calloutBar && self.calloutBar.superview) {
+        [self.calloutBar removeFromSuperview];
+        self.calloutBar = nil;
+    }
+    self->_menuVisible = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerDidHideMenuNotification object:self];
+}
 
 - (void)performMenuSelector:(SEL)sel {
     if (self.targetView && [self.targetView respondsToSelector:sel]) {

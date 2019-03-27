@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.homepage         = 'https://github.com/LYPDoit/YPMenuController'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'liuyaping' => 'lypJTD@163.com' }
+  s.author           = { 'LYPDoit' => 'lypJTD@163.com' }
   s.source           = { :git => 'https://github.com/LYPDoit/YPMenuController.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'

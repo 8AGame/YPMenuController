@@ -8,7 +8,7 @@
 
 #import "YPViewController.h"
 #import "YPTableViewCell.h"
-
+#import <YPMenuController/YPMenuController.h>
 
 @interface YPViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -23,9 +23,16 @@
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"YPTableViewCell" bundle:nil] forCellReuseIdentifier:@"YPTableViewCell"];
     self.text = @"wwwwww";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:YPMenuControllerWillShowMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:YPMenuControllerDidShowMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:YPMenuControllerWillHideMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:YPMenuControllerDidHideMenuNotification object:nil];
+
+
+}
+- (void)notificationAction:(id)sender {
     
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YPTableViewCell" forIndexPath:indexPath];
     return cell;

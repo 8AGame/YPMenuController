@@ -397,6 +397,7 @@
     }
 
     CGRect pathRect = CGRectMake(0, backupY, width, kContentHeight);
+    self.contentRect = pathRect;
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:kBackupLayerCornerRadius];
     //convert `transformRect` which from window to calloutBar view coordinate.
     middleX -= self.frame.origin.x;

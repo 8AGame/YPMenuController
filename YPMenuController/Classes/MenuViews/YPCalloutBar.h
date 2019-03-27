@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^triggerClickBlock)(SEL action);
 
+@property (nonatomic, assign) CGRect contentRect;
+
 @end
 
 NS_ASSUME_NONNULL_END

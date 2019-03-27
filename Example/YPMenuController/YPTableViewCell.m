@@ -62,7 +62,6 @@
     config.menuType = YPMenuControllerImageTopTitleBottom;
     [self popupYPMenuSender:sender config:config];
 
-    [self popupYPMenuSender:sender config:config];
 }
 
 - (IBAction)bottomImgTopTitleStyleAction:(id)sender {
@@ -158,8 +157,11 @@
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
 
 }
-
+- (void)copy:(id)sender {
+    
+}
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+
     if (action == @selector(copy:)) {
         return YES;
         
