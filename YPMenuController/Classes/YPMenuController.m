@@ -102,9 +102,9 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 - (void)menuInvisibleWithAnimated:(BOOL)animated {
     if (!self->_menuVisible) return;
     self->_menuVisible = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
 
     if (animated) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
         YPCalloutBar *animatePeriodBar = self.calloutBar;
         self.calloutBar.alpha = 1;
         NSTimeInterval time =  0.3;
@@ -122,7 +122,6 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
         }];
 
     }else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
         [self dismissMenuOperate];
     }
 }
