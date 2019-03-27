@@ -279,11 +279,14 @@
     //x
     CGFloat barX = 0;
     CGRect bounds = [UIScreen mainScreen].bounds;
-    if (CGRectGetMidX(self.transformRect) < CGRectGetMidX(bounds)) {
+    barX = CGRectGetMidX(self.transformRect) - barWidth/2.0;
+    if (barX < kBarMarginLeft) {
         barX = kBarMarginLeft;
-    }else{
+        
+    }else if (barX + barWidth > CGRectGetWidth(bounds) - kBarMarginLeft){
         barX = CGRectGetWidth(bounds) - barWidth - kBarMarginLeft;
     }
+
     //y
     CGFloat barY = 0;
     if ([self getRealArrowDirection] == YPMenuControllerArrowUp) {
@@ -395,8 +398,17 @@
 
     CGRect pathRect = CGRectMake(0, backupY, width, kContentHeight);
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:kBackupLayerCornerRadius];
-    //triangle
+    //convert `transformRect` which from window to calloutBar view coordinate.
     middleX -= self.frame.origin.x;
+    //triangle which in calloutBar view coordinate.
+    CGFloat leftLimit = kTriangleRadiusWidth + kBackupLayerCornerRadius;
+    CGFloat rightLimit = CGRectGetWidth(self.frame) - kTriangleRadiusWidth - kBackupLayerCornerRadius;
+    if (middleX < leftLimit) {
+        middleX = leftLimit;
+        
+    }else if (middleX > rightLimit){
+        middleX = rightLimit;
+    }
     [path moveToPoint:CGPointMake(middleX, triangleStartY)];
     [path addLineToPoint:CGPointMake(middleX - kTriangleRadiusWidth, triangleEndY)];
     [path addLineToPoint:CGPointMake(middleX + kTriangleRadiusWidth, triangleEndY)];

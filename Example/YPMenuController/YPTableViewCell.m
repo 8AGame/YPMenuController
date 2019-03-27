@@ -20,6 +20,7 @@
     // Initialization code
 }
 
+#pragma mark -- yp styele
 
 - (IBAction)systemStyleAction:(id)sender {
 
@@ -90,26 +91,12 @@
     YPMenuItem *item9 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome:) title:@"第九" image:[UIImage imageNamed:@"like"]];
     YPMenuItem *item10 = [[YPMenuItem alloc] initTitleAndImageWithAction:@selector(custome1:) title:@"第十个" image:[UIImage imageNamed:@"like"]];
     NSArray *menus = @[item1, item2, item3, item4, item5, item6,item7,item8,item9,item10];
-    
     [YPMenuController sharedMenuController].styleConfig = config;
     [YPMenuController sharedMenuController].menuItems = menus;
     [[YPMenuController sharedMenuController] menuVisibleInView:self
                                                     targetRect:sender.frame
                                                       animated:YES];
 }
-
-
-- (void)custome1:(id)sender {
-    NSLog(@"custom1 action");
-}
-- (void)custome:(id)sender {
-    NSLog(@"custom action");
-}
-- (void)custome3 {
-    NSLog(@"custome3 action");
-}
-
-
 
 - (IBAction)customStyleAction:(id)sender {
     YPMenuStyleConfig *config = [[YPMenuStyleConfig alloc] init];
@@ -145,10 +132,50 @@
     [[YPMenuController sharedMenuController] menuVisibleInView:self
                                                     targetRect:[(UIButton *)sender frame]
                                                       animated:YES];
+    
 }
 
 - (void)customViewTypeAction:(id)sender {
     [[YPMenuController sharedMenuController] menuInvisibleWithAnimated:YES];
 }
+
+- (void)custome1:(id)sender {
+    NSLog(@"custom1 action");
+}
+- (void)custome:(id)sender {
+    NSLog(@"custom action");
+}
+- (void)custome3 {
+    NSLog(@"custome3 action");
+}
+
+#pragma mark -- UIMenu style
+
+- (IBAction)UIMenuStyleAction:(id)sender {
+    
+    [self becomeFirstResponder];
+    [[UIMenuController sharedMenuController] setTargetRect:[(UIButton *)sender frame] inView:self];
+    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(copy:)) {
+        return YES;
+        
+    }
+    return NO;
+}
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    [self resignFirstResponder];
+    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+}
+
+
 
 @end
