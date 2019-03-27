@@ -96,7 +96,7 @@
         YPCalloutBar *animatePeriodBar = self.calloutBar;
         self.calloutBar.alpha = 1;
         NSTimeInterval time =  0.2;
-        [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut  animations:^{
+        [UIView animateWithDuration:time delay:self.styleConfig.barDismissDelayInterval options:UIViewAnimationOptionCurveEaseInOut  animations:^{
             self.calloutBar.alpha = 0;
             
         } completion:^(BOOL finished) {

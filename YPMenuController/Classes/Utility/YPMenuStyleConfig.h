@@ -37,6 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
  The default is grayColor.
  */
 @property (nonatomic, strong) UIColor *barShadowColor;
+/**
+ Bar dismis delay interval.
+ The default is 0.
+ */
+@property (nonatomic, assign) NSTimeInterval barDismissDelayInterval;
 
 #pragma mark -- Menu button properties
 #pragma mark The properties in this section is invalid when `menuType` is `YPMenuControllerCustom`

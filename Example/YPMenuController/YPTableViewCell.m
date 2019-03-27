@@ -117,20 +117,23 @@
     config.barHeight = 58;
     config.barBackgroundColor = [UIColor whiteColor];
     config.separatorLineColor = [UIColor cyanColor];
+    config.barDismissDelayInterval = 0.2;
     UISwitch *sw = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     sw.onTintColor = [UIColor greenColor];
-    [sw addTarget:self action:@selector(custome3) forControlEvents:UIControlEventTouchUpInside];
+    sw.tintColor = [UIColor lightGrayColor];
+    [sw addTarget:self action:@selector(customViewTypeAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     [slider addTarget:self action:@selector(custome3) forControlEvents:UIControlEventValueChanged];
-    slider.minimumTrackTintColor = [UIColor greenColor];
+    slider.minimumTrackTintColor = [UIColor orangeColor];
     slider.maximumTrackTintColor = [UIColor purpleColor];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     btn.frame = CGRectMake(0, 0, 80, 34);
     [btn setTitle:@"点赞" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor magentaColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(customViewTypeAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    [btn addTarget:self action:@selector(custome:) forControlEvents:UIControlEventTouchUpInside];
     YPMenuItem *item = [[YPMenuItem alloc] initWithCustomView:sw];
     YPMenuItem *item1 = [[YPMenuItem alloc] initWithCustomView:slider];
     YPMenuItem *item2 = [[YPMenuItem alloc] initWithCustomView:btn];
@@ -142,7 +145,10 @@
     [[YPMenuController sharedMenuController] menuVisibleInView:self
                                                     targetRect:[(UIButton *)sender frame]
                                                       animated:YES];
-    
+}
+
+- (void)customViewTypeAction:(id)sender {
+    [[YPMenuController sharedMenuController] menuInvisibleWithAnimated:YES];
 }
 
 @end
