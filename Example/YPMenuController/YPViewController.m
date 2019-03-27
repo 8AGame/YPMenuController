@@ -31,7 +31,7 @@
 
 }
 - (void)notificationAction:(id)sender {
-    NSLog(@"");
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YPTableViewCell" forIndexPath:indexPath];
