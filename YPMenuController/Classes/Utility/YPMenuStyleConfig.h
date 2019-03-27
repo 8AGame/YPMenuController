@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
  The default is `YPMenuControllerArrowDefault`.
  */
 @property (nonatomic, assign) YPMenuControllerArrowDirection arrowDirection;
+/*
+ The default is YES.
+ */
+@property (nonatomic, assign) BOOL autoDismiss;
 /**
  Bar view height.
  The default is automatically calculated based on `menuType`.
@@ -44,7 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSTimeInterval barDismissDelayInterval;
 
 #pragma mark -- Menu button properties
-#pragma mark The properties in this section is invalid when `menuType` is `YPMenuControllerCustom`
+/****
+ Notice:
+ The properties in this section is invalid when `menuType` is `YPMenuControllerCustom`.
+ */
+
 /**
  Spacing between image and title.
  The default is 5.

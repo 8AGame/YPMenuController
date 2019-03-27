@@ -25,6 +25,7 @@
         self.menuContentEdge =  UIEdgeInsetsMake(0, 15, 0, 15);
         self.backHighlightColor = [UIColor lightGrayColor];
         self.barDismissDelayInterval = 0;
+        self.autoDismiss = YES;
     }
     return self;
 }

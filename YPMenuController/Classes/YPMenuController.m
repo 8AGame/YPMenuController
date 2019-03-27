@@ -49,7 +49,9 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
                 CGRectContainsPoint(weakSelf.calloutBar.contentRect, inCallBarPoint)) {
                 return YES;
             }else{
-                [weakSelf menuInvisibleWithAnimated:YES];
+                if (weakSelf.styleConfig.autoDismiss) {
+                    [weakSelf menuInvisibleWithAnimated:YES];
+                }
                 return NO;
             }
         };
@@ -69,10 +71,9 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 - (void)menuVisibleInView:(UIView *)targetView
                targetRect:(CGRect)targetRect
                  animated:(BOOL)animated {
-    
+    if (self->_menuVisible) return;
     if (!self.menuItems || self.menuItems.count < 1) return;
     
-    [self menuInvisibleWithAnimated:NO];
     self.targetRect = targetRect;
     self.targetView = targetView;
     self.menuWindow.hidden = NO;
@@ -106,12 +107,13 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 
     if (animated) {
         YPCalloutBar *animatePeriodBar = self.calloutBar;
-        self.calloutBar.alpha = 1;
+        animatePeriodBar.alpha = 1;
         NSTimeInterval time =  0.3;
         [UIView animateWithDuration:time delay:self.styleConfig.barDismissDelayInterval options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.calloutBar.alpha = 0;
+            animatePeriodBar.alpha = 0;
             
         } completion:^(BOOL finished) {
+            //Handle last bar view be being dismiss, new bar be created and show.
             if (animatePeriodBar == self.calloutBar) {
                 [self dismissMenuOperate];
             }else{
@@ -141,7 +143,9 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
         [self.targetView performSelector:sel withObject:self];
 #pragma clang diagnostic pop
     }
-    [self menuInvisibleWithAnimated:YES];
+    if (self.styleConfig.autoDismiss) {
+        [self menuInvisibleWithAnimated:YES];
+    }
 }
 
 
