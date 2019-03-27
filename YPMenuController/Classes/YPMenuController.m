@@ -101,6 +101,7 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 
 - (void)menuInvisibleWithAnimated:(BOOL)animated {
     if (!self->_menuVisible) return;
+    self->_menuVisible = NO;
 
     if (animated) {
         [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
@@ -112,23 +113,25 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
             
         } completion:^(BOOL finished) {
             if (animatePeriodBar == self.calloutBar) {
-                if (!self->_menuVisible) return;
-                [self dismissMenuController];
+                [self dismissMenuOperate];
+            }else{
+                if (animatePeriodBar.superview) {
+                    [animatePeriodBar removeFromSuperview];
+                }
             }
         }];
 
     }else{
         [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillHideMenuNotification object:self];
-        [self dismissMenuController];
+        [self dismissMenuOperate];
     }
 }
-- (void)dismissMenuController {
+- (void)dismissMenuOperate {
     self.menuWindow.hidden = YES;
     if (self.calloutBar && self.calloutBar.superview) {
         [self.calloutBar removeFromSuperview];
         self.calloutBar = nil;
     }
-    self->_menuVisible = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerDidHideMenuNotification object:self];
 }
 
