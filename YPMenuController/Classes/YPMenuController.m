@@ -78,6 +78,9 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
     self.targetView = targetView;
     self.menuWindow.hidden = NO;
     CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
+    if (transformRect.origin.y < 0) {
+        return;
+    }
     self.calloutBar = [[YPCalloutBar alloc] initWithMenuItems:self.menuItems
                                                 transformRect:transformRect
                                                   styleConfig:self.styleConfig];
