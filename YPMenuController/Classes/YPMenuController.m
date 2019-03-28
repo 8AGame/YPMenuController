@@ -144,11 +144,16 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 }
 
 - (void)performMenuSelector:(SEL)sel {
-    if (self.targetView && [self.targetView respondsToSelector:sel]) {
+    if (self.targetView) {
+        if ([self.targetView respondsToSelector:sel] ||
+            ([self.targetView respondsToSelector:@selector(canPerformAction:withSender:)]
+             && [self.targetView canPerformAction:sel withSender:self])
+        ) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self.targetView performSelector:sel withObject:self];
+            [self.targetView performSelector:sel withObject:self];
 #pragma clang diagnostic pop
+        }
     }
     if (self.styleConfig.autoDismiss) {
         [self menuInvisibleWithAnimated:YES];
