@@ -46,6 +46,11 @@ NS_ASSUME_NONNULL_BEGIN
  The default is 0.
  */
 @property (nonatomic, assign) NSTimeInterval barDismissDelayInterval;
+/**
+ Bar to the top of window limit distance when less than this distance does not show menu.
+ The default is status bar height.
+ */
+@property (nonatomic, assign) CGFloat topLimitMargin;
 
 #pragma mark -- Menu button properties
 /****

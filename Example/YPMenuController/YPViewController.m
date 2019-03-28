@@ -28,11 +28,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:YPMenuControllerWillHideMenuNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:YPMenuControllerDidHideMenuNotification object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:UIMenuControllerWillShowMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:UIMenuControllerDidShowMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:UIMenuControllerWillHideMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationAction:) name:UIMenuControllerDidHideMenuNotification object:nil];
+}
 
+- (void)notificationAction:(NSNotification *)sender {
+    NSLog(@"%@",sender.name);
 }
-- (void)notificationAction:(id)sender {
-    
-}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YPTableViewCell" forIndexPath:indexPath];
     return cell;

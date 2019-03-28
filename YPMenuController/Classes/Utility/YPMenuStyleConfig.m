@@ -26,6 +26,7 @@
         self.backHighlightColor = [UIColor lightGrayColor];
         self.barDismissDelayInterval = 0;
         self.autoDismiss = YES;
+        self.topLimitMargin = UIApplication.sharedApplication.statusBarFrame.size.height;
     }
     return self;
 }

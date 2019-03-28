@@ -65,19 +65,17 @@
 
 @implementation YPCalloutBar
 
-- (instancetype)initWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
-                    transformRect:(CGRect)transformRect
-                      styleConfig:(YPMenuStyleConfig *)styleConfig {
++ (instancetype)createCallBarWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
+                             transformRect:(CGRect)transformRect
+                               styleConfig:(YPMenuStyleConfig *)styleConfig {
     
-    self = [super init];
-    if (self) {
-        self.backgroundColor = [UIColor clearColor];
-        self.transformRect = transformRect;
-        self.menuItems = menuItems;
-        self.styleConfig = styleConfig;
-    }
-    return self;
-
+    YPCalloutBar *callBar = [[YPCalloutBar alloc] init];
+    callBar.backgroundColor = [UIColor clearColor];
+    callBar.transformRect = transformRect;
+    callBar.menuItems = menuItems;
+    callBar.styleConfig = styleConfig;
+    [callBar layoutBarItems];
+    return callBar;
 }
 
 - (void)layoutBarItems {
@@ -397,7 +395,7 @@
     }
 
     CGRect pathRect = CGRectMake(0, backupY, width, kContentHeight);
-    self.contentRect = pathRect;
+    _contentRect = pathRect;
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:kBackupLayerCornerRadius];
     //convert `transformRect` which from window to calloutBar view coordinate.
     middleX -= self.frame.origin.x;
@@ -447,7 +445,7 @@
 - (YPMenuControllerArrowDirection)getRealArrowDirection {
     if (self.styleConfig.arrowDirection == YPMenuControllerArrowDefault) {
         CGFloat barY = CGRectGetMinY(self.transformRect) - self.styleConfig.barHeight;
-        if (barY <= 0) {
+        if (barY < self.styleConfig.topLimitMargin) {
             return YPMenuControllerArrowUp;
         }else{
             return YPMenuControllerArrowDown;

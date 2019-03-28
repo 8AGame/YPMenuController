@@ -20,8 +20,6 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 
 @property (nonatomic, strong) YPCalloutBar *calloutBar;
 
-@property (nonatomic, assign) CGRect targetRect;
-
 @property (nonatomic, weak) UIView *targetView;
 
 @end
@@ -71,30 +69,31 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 - (void)menuVisibleInView:(UIView *)targetView
                targetRect:(CGRect)targetRect
                  animated:(BOOL)animated {
-    if (self->_menuVisible) return;
-    if (!self.menuItems || self.menuItems.count < 1) return;
+    //Conditions that bar cannot be displayed.
+    if (self->_menuVisible ||
+        !self.menuItems ||
+        self.menuItems.count < 1) return;
     
-    self.targetRect = targetRect;
-    self.targetView = targetView;
-    self.menuWindow.hidden = NO;
-    CGRect transformRect = [self.menuWindow convertRect:self.targetRect fromView:self.targetView];
-    if (transformRect.origin.y < 0) {
+    CGRect transformRect = [self.menuWindow convertRect:targetRect fromView:targetView];
+    YPCalloutBar *callBar = [YPCalloutBar createCallBarWithMenuItems:self.menuItems transformRect:transformRect styleConfig:self.styleConfig];
+    if (callBar.frame.origin.y < self.styleConfig.topLimitMargin) {
+        //Bar cannot be displayed when less than `topLimitMargin`.
         return;
     }
-    self.calloutBar = [[YPCalloutBar alloc] initWithMenuItems:self.menuItems
-                                                transformRect:transformRect
-                                                  styleConfig:self.styleConfig];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillShowMenuNotification object:self];
+    self.targetView = targetView;
+    self.calloutBar = callBar;
     __weak __typeof(self)weakSelf = self;
     self.calloutBar.triggerClickBlock = ^(SEL  _Nonnull action) {
         [weakSelf performMenuSelector:action];
     };
-    [self.calloutBar layoutBarItems];
-    [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillShowMenuNotification object:self];
     self.calloutBar.alpha = 0.0;
+    self.menuWindow.hidden = NO;
     [self.menuWindow addSubview:self.calloutBar];
     self->_menuVisible = YES;
     if (animated) {
-        NSTimeInterval time =  0.3;
+        NSTimeInterval time =  0.2;
         [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.calloutBar.alpha = 1;
         } completion:^(BOOL finished) {

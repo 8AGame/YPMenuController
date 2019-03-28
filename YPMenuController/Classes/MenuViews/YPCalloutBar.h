@@ -14,15 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YPCalloutBar : UIView
 
-- (instancetype)initWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
-                    transformRect:(CGRect)transformRect
-                      styleConfig:(YPMenuStyleConfig *)styleConfig;
-
-- (void)layoutBarItems;
++ (instancetype)createCallBarWithMenuItems:(NSArray<YPMenuItem *> *)menuItems
+                             transformRect:(CGRect)transformRect
+                               styleConfig:(YPMenuStyleConfig *)styleConfig;
 
 @property (nonatomic, copy) void (^triggerClickBlock)(SEL action);
 
-@property (nonatomic, assign) CGRect contentRect;
+@property (nonatomic, assign, readonly) CGRect contentRect;
 
 @end
 
