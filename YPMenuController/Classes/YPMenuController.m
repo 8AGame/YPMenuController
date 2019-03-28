@@ -81,13 +81,13 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
         return;
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillShowMenuNotification object:self];
     self.targetView = targetView;
     self.calloutBar = callBar;
     __weak __typeof(self)weakSelf = self;
     self.calloutBar.triggerClickBlock = ^(SEL  _Nonnull action) {
         [weakSelf performMenuSelector:action];
     };
+    [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerWillShowMenuNotification object:self];
     self.calloutBar.alpha = 0.0;
     self.menuWindow.hidden = NO;
     [self.menuWindow addSubview:self.calloutBar];
@@ -101,7 +101,12 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
         }];
     }
 }
-
+- (void)setCalloutBar:(YPCalloutBar *)calloutBar {
+    if (_calloutBar && _calloutBar.superview) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerDidHideMenuNotification object:self];
+    }
+    _calloutBar = calloutBar;
+}
 - (void)menuInvisibleWithAnimated:(BOOL)animated {
     if (!self->_menuVisible) return;
     self->_menuVisible = NO;
