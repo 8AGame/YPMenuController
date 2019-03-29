@@ -14,16 +14,27 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
 + (instancetype)new UNAVAILABLE_ATTRIBUTE;
-
+/**
+ System style item.
+ */
 - (instancetype)initSystemWithAction:(SEL)action
                                title:(NSString *)title NS_DESIGNATED_INITIALIZER;
-
+/**
+  Image and title style item.
+ */
 - (instancetype)initTitleAndImageWithAction:(SEL)action
                                       title:(nullable NSString *)title
                                       image:(nullable UIImage *)image NS_DESIGNATED_INITIALIZER;
-
+/**
+ Custom view style item.
+ */
 - (instancetype)initWithCustomView:(UIView *)customView NS_DESIGNATED_INITIALIZER;
 
+/**
+ `action` can be performed need to satisfy either
+ `targetView` call `respondsToSelector:` method returns YES or
+ `targetView` call `canPerformAction:withSender:` method returns YES.
+ */
 @property (nonatomic, assign, nullable, readonly) SEL action;
 
 @property (nonatomic, strong, nullable, readonly) NSString *title;
