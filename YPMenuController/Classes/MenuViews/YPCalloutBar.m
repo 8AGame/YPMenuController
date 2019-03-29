@@ -115,7 +115,11 @@
     }
     //left skip button
     if (hasMore && range.location > 0) {
-        self.leftSkipBtn.frame = CGRectMake(0, contentMarginTop, kSkipBtnWidth, kContentHeight);
+        self.leftSkipBtn.highlighted = NO;
+        self.leftSkipBtn.backgroundColor = [UIColor clearColor];
+        CGRect rect = self.leftSkipBtn.frame;
+        rect.origin = CGPointMake(0, contentMarginTop);
+        self.leftSkipBtn.frame = rect;
         [self addSubview:self.leftSkipBtn];
         totalWidth += kSkipBtnWidth;
         //line view
@@ -134,14 +138,28 @@
             //line view
             [self addSubview:[self lineViewWithXValue:totalWidth]];
         }
+        if (self.menuItemViews.count == 1){
+            [self setConerForView:perView cornerStyle:UIRectCornerAllCorners];
+
+        }else if (CGRectGetMinX(perView.frame) == 0) {
+            //the first view in bar view
+            [self setConerForView:perView cornerStyle:UIRectCornerTopLeft | UIRectCornerBottomLeft];
+        }else if (startLoc == length - 1 && !hasMore) {
+            //the last view in bar view
+            [self setConerForView:perView cornerStyle:UIRectCornerTopRight | UIRectCornerBottomRight];
+        }
     }
     
     //right skip button
     if (hasMore) {
         //line view
         [self addSubview:[self lineViewWithXValue:totalWidth]];
+        self.rightSkipBtn.highlighted = NO;
+        self.rightSkipBtn.backgroundColor = [UIColor clearColor];
         self.rightSkipBtn.enabled = YES;
-        self.rightSkipBtn.frame = CGRectMake(totalWidth, contentMarginTop, kSkipBtnWidth, kContentHeight);
+        CGRect rect = self.rightSkipBtn.frame;
+        rect.origin = CGPointMake(totalWidth, contentMarginTop);
+        self.rightSkipBtn.frame = rect;
         [self addSubview:self.rightSkipBtn];
         totalWidth += kSkipBtnWidth;
         if (NSMaxRange(range) >= self.menuItems.count) {
@@ -149,6 +167,14 @@
         }
     }
     [self setCallBarFrameWithBarWidth:totalWidth];
+}
+
+- (void)setConerForView:(UIView *)view cornerStyle:(UIRectCorner)cornerStyle{
+    UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:cornerStyle cornerRadii:CGSizeMake(kBackupLayerCornerRadius, kBackupLayerCornerRadius)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = view.bounds;
+    maskLayer.path = path.CGPath;
+    view.layer.mask = maskLayer;
 }
 
 - (NSRange)calculateShowRangeForHasMoreWithTowardRight:(BOOL)towardRight  {
@@ -188,7 +214,7 @@
     menuBtn.contentEdgeInsets = self.styleConfig.menuContentEdge;
     [menuBtn addTarget:self action:@selector(itemButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [menuBtn addTarget:self action:@selector(changeBackgroundColorAction:) forControlEvents:UIControlEventAllTouchEvents];
-
+    menuBtn.adjustsImageWhenHighlighted = NO;
     objc_setAssociatedObject(menuBtn, @selector(itemButtonAction:), menuItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (menuItem.title &&
         (self.styleConfig.menuType== YPMenuControllerSystem ||
@@ -366,10 +392,17 @@
 
     UIButton *skipButton = [UIButton buttonWithType:UIButtonTypeCustom];
     skipButton.backgroundColor = [UIColor clearColor];
+    skipButton.frame = CGRectMake(0, 0, kSkipBtnWidth, kContentHeight);
     skipButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     [skipButton setImage:triangleImage forState:UIControlStateNormal];
     SEL sel = isLeft ? @selector(leftSikpAction) : @selector(rightSikpAction);
+    if (isLeft) {
+        [self setConerForView:skipButton cornerStyle:UIRectCornerTopLeft | UIRectCornerBottomLeft];
+    }else{
+        [self setConerForView:skipButton cornerStyle:UIRectCornerTopRight | UIRectCornerBottomRight];
+    }
     [skipButton addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
+    [skipButton addTarget:self action:@selector(changeBackgroundColorAction:) forControlEvents:UIControlEventAllTouchEvents];
     return skipButton;
 }
 

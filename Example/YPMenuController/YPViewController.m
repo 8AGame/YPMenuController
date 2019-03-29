@@ -35,7 +35,7 @@
 }
 
 - (void)notificationAction:(NSNotification *)sender {
-    NSLog(@"%@",sender.name);
+//    NSLog(@"%@",sender.name);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
