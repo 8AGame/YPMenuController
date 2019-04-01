@@ -20,8 +20,6 @@
 
 #define kContentTowardRearMargin            9
 
-#define kSpacingBetweenTitleAndImage        5
-
 #define kBarHeight \
 ((self.styleConfig.barContentHeight) + (kContentTowardTargetViewMargin) + (kContentTowardRearMargin))
 
@@ -244,31 +242,30 @@
     }
     menuBtn.frame = CGRectMake(0, 0, btnWidth, self.styleConfig.barContentHeight);
     switch (self.styleConfig.menuType) {
-        case YPMenuControllerImageOnly:
-            
-            break;
             
         case YPMenuControllerImageTopTitleBottom:
-            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(menuBtn.imageView.intrinsicContentSize.height + kSpacingBetweenTitleAndImage, - menuBtn.imageView.intrinsicContentSize.width, 0, 0);
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width/2, menuBtn.titleLabel.intrinsicContentSize.height+kSpacingBetweenTitleAndImage, - menuBtn.titleLabel.intrinsicContentSize.width/2);
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(menuBtn.imageView.intrinsicContentSize.height + self.styleConfig.contentSpace, - menuBtn.imageView.intrinsicContentSize.width, 0, 0);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width/2, menuBtn.titleLabel.intrinsicContentSize.height+self.styleConfig.contentSpace, - menuBtn.titleLabel.intrinsicContentSize.width/2);
             break;
             
         case YPMenuControllerTitleTopImageBottom:
-            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(-menuBtn.imageView.intrinsicContentSize.height-kSpacingBetweenTitleAndImage,  -menuBtn.imageView.intrinsicContentSize.width, 0, 0);
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width/2, -menuBtn.titleLabel.intrinsicContentSize.height-kSpacingBetweenTitleAndImage,  menuBtn.titleLabel.intrinsicContentSize.width/2);
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(-menuBtn.imageView.intrinsicContentSize.height-self.styleConfig.contentSpace,  -menuBtn.imageView.intrinsicContentSize.width, 0, 0);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width/2, -menuBtn.titleLabel.intrinsicContentSize.height-self.styleConfig.contentSpace,  menuBtn.titleLabel.intrinsicContentSize.width/2);
             break;
             
         case YPMenuControllerImageLeftTitleRight:
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -kSpacingBetweenTitleAndImage, 0, 0);
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -self.styleConfig.contentSpace);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -self.styleConfig.contentSpace, 0, 0);
 
             break;
             
         case YPMenuControllerTitleLeftImageRight:
-            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -menuBtn.imageView.intrinsicContentSize.width-kSpacingBetweenTitleAndImage, 0, menuBtn.imageView.intrinsicContentSize.width);
-            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width, 0, -menuBtn.titleLabel.intrinsicContentSize.width-kSpacingBetweenTitleAndImage);
+            menuBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -menuBtn.imageView.intrinsicContentSize.width-self.styleConfig.contentSpace, 0, menuBtn.imageView.intrinsicContentSize.width);
+            menuBtn.imageEdgeInsets = UIEdgeInsetsMake(0, menuBtn.titleLabel.intrinsicContentSize.width, 0, -menuBtn.titleLabel.intrinsicContentSize.width-self.styleConfig.contentSpace);
             break;
             
         case YPMenuControllerSystem:
+        case YPMenuControllerImageOnly:
         default:
             
             break;
@@ -418,12 +415,13 @@
 
     CGFloat triangleStartY = 0;
     CGFloat triangleEndY = 0;
+    CGFloat triangleToBorderSpace = 5;
     if ([self getRealArrowDirection] == YPMenuControllerArrowDown) {
-        triangleStartY = kBarHeight - self.styleConfig.contentSpace;
+        triangleStartY = kBarHeight - triangleToBorderSpace;
         triangleEndY = backupY + self.styleConfig.barContentHeight;
         
     }else if([self getRealArrowDirection] == YPMenuControllerArrowUp) {
-        triangleStartY = self.styleConfig.contentSpace;
+        triangleStartY = triangleToBorderSpace;
         triangleEndY = backupY;
     }
 
