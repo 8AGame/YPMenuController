@@ -70,12 +70,18 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
                targetRect:(CGRect)targetRect
                  animated:(BOOL)animated {
     //Conditions that bar cannot be displayed.
-    if (self->_menuVisible ||
-        !self.menuItems ||
-        self.menuItems.count < 1) return;
+    if (self->_menuVisible || ![targetView isKindOfClass:UIView.class]) return;
+    
+    NSMutableArray *canVisibleItems = [[NSMutableArray alloc] init];
+    for (YPMenuItem *item in self.menuItems) {
+        if (self.styleConfig.menuType == YPMenuControllerCustom || [self canPerformMenuSelector:item.action inTargetView:targetView]) {
+            [canVisibleItems addObject:item];
+        }
+    }
+    if (canVisibleItems.count < 1) return;
     
     CGRect transformRect = [self.menuWindow convertRect:targetRect fromView:targetView];
-    YPCalloutBar *callBar = [YPCalloutBar createCallBarWithMenuItems:self.menuItems transformRect:transformRect styleConfig:self.styleConfig];
+    YPCalloutBar *callBar = [YPCalloutBar createCallBarWithMenuItems:canVisibleItems transformRect:transformRect styleConfig:self.styleConfig];
     if (callBar.frame.origin.y < self.styleConfig.topLimitMargin) {
         //Bar cannot be displayed when less than `topLimitMargin`.
         return;
@@ -143,17 +149,23 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
     [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerDidHideMenuNotification object:self];
 }
 
+- (BOOL)canPerformMenuSelector:(SEL)sel inTargetView:(UIView *)targetView{
+    if (targetView) {
+        if ([targetView respondsToSelector:@selector(canPerformAction:withSender:)]
+             && [targetView canPerformAction:sel withSender:self]
+            ) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)performMenuSelector:(SEL)sel {
-    if (self.targetView) {
-        if ([self.targetView respondsToSelector:sel] ||
-            ([self.targetView respondsToSelector:@selector(canPerformAction:withSender:)]
-             && [self.targetView canPerformAction:sel withSender:self])
-        ) {
+    if ([self canPerformMenuSelector:sel inTargetView:self.targetView]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [self.targetView performSelector:sel withObject:self];
+        [self.targetView performSelector:sel withObject:self];
 #pragma clang diagnostic pop
-        }
     }
     if (self.styleConfig.autoDismiss) {
         [self menuInvisibleWithAnimated:YES];

@@ -100,16 +100,16 @@
 - (IBAction)customStyleAction:(id)sender {
     YPMenuStyleConfig *config = [[YPMenuStyleConfig alloc] init];
     config.menuType = YPMenuControllerCustom;
-    config.barHeight = 58;
+    config.barHeight = 34;
     config.barBackgroundColor = [UIColor whiteColor];
     config.separatorLineColor = [UIColor cyanColor];
     config.barDismissDelayInterval = 0.2;
-    UISwitch *sw = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UISwitch *sw = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 40, 34)];
     sw.onTintColor = [UIColor greenColor];
     sw.tintColor = [UIColor lightGrayColor];
     [sw addTarget:self action:@selector(customViewTypeAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 200, 34)];
     [slider addTarget:self action:@selector(custome3) forControlEvents:UIControlEventValueChanged];
     slider.minimumTrackTintColor = [UIColor orangeColor];
     slider.maximumTrackTintColor = [UIColor purpleColor];
@@ -159,14 +159,7 @@
 - (void)copy:(id)sender {
     
 }
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
 
-    if (action == @selector(copy:)) {
-        return YES;
-        
-    }
-    return NO;
-}
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
@@ -177,6 +170,16 @@
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 }
 
-
+#pragma mark -- General
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    
+    if (action == @selector(copy:) ||
+        action == @selector(custome1:) ||
+        action == @selector(custome:) ||
+        action == @selector(custome3)) {
+        return YES;
+    }
+    return NO;
+}
 
 @end

@@ -35,10 +35,10 @@
     if (!_barHeight) {
         if (self.menuType == YPMenuControllerImageTopTitleBottom ||
             self.menuType == YPMenuControllerTitleTopImageBottom) {
-            return 80;
+            return 56;
             
         }else{
-            return 60;
+            return 36;
         }
     }
     return _barHeight;

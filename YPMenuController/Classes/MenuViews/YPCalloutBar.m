@@ -22,8 +22,8 @@
 
 #define kSpacingBetweenTitleAndImage        5
 
-#define kContentHeight \
-((self.styleConfig.barHeight) - (kContentTowardTargetViewMargin) - (kContentTowardRearMargin))
+#define kBarHeight \
+((self.styleConfig.barHeight) + (kContentTowardTargetViewMargin) + (kContentTowardRearMargin))
 
 #define kBarMaxWidth  \
 ((CGRectGetWidth([UIScreen mainScreen].bounds))-(kBarMarginLeft)*2)
@@ -236,13 +236,13 @@
             [menuBtn setImage:menuItem.image forState:UIControlStateNormal];
     }
     CGFloat maxContent = kBarMaxWidth - kSkipBtnWidth * 2;
-    CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, kContentHeight)];
+    CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, self.styleConfig.barHeight)];
     CGFloat btnWidth = size.width;
     if (btnWidth > maxContent) {
         btnWidth = maxContent;
         menuBtn.clipsToBounds = YES;
     }
-    menuBtn.frame = CGRectMake(0, 0, btnWidth, kContentHeight);
+    menuBtn.frame = CGRectMake(0, 0, btnWidth, self.styleConfig.barHeight);
     switch (self.styleConfig.menuType) {
         case YPMenuControllerImageOnly:
             
@@ -294,7 +294,7 @@
 
 - (UIView *)lineViewWithXValue:(CGFloat)xValue {
     CGFloat contentMarginTop = [self getBarContentMarginTop];
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, contentMarginTop, 1, kContentHeight)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, contentMarginTop, 1, self.styleConfig.barHeight)];
     lineView.backgroundColor = [self.styleConfig.separatorLineColor colorWithAlphaComponent:0.8];
     return lineView;
 }
@@ -317,9 +317,9 @@
         barY = CGRectGetMaxY(self.transformRect);
 
     } else if ([self getRealArrowDirection] == YPMenuControllerArrowDown) {
-        barY = CGRectGetMinY(self.transformRect) - self.styleConfig.barHeight;
+        barY = CGRectGetMinY(self.transformRect) - kBarHeight;
     }
-    self.frame = CGRectMake(barX, barY, barWidth, self.styleConfig.barHeight);
+    self.frame = CGRectMake(barX, barY, barWidth, kBarHeight);
     [self addBackupLayer];
 }
 
@@ -392,7 +392,7 @@
 
     UIButton *skipButton = [UIButton buttonWithType:UIButtonTypeCustom];
     skipButton.backgroundColor = [UIColor clearColor];
-    skipButton.frame = CGRectMake(0, 0, kSkipBtnWidth, kContentHeight);
+    skipButton.frame = CGRectMake(0, 0, kSkipBtnWidth, self.styleConfig.barHeight);
     skipButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     [skipButton setImage:triangleImage forState:UIControlStateNormal];
     SEL sel = isLeft ? @selector(leftSikpAction) : @selector(rightSikpAction);
@@ -419,15 +419,15 @@
     CGFloat triangleStartY = 0;
     CGFloat triangleEndY = 0;
     if ([self getRealArrowDirection] == YPMenuControllerArrowDown) {
-        triangleStartY = self.styleConfig.barHeight - self.styleConfig.contentSpace;
-        triangleEndY = backupY + kContentHeight;
+        triangleStartY = kBarHeight - self.styleConfig.contentSpace;
+        triangleEndY = backupY + self.styleConfig.barHeight;
         
     }else if([self getRealArrowDirection] == YPMenuControllerArrowUp) {
         triangleStartY = self.styleConfig.contentSpace;
         triangleEndY = backupY;
     }
 
-    CGRect pathRect = CGRectMake(0, backupY, width, kContentHeight);
+    CGRect pathRect = CGRectMake(0, backupY, width, self.styleConfig.barHeight);
     _contentRect = pathRect;
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:kBackupLayerCornerRadius];
     //convert `transformRect` which from window to calloutBar view coordinate.
@@ -477,7 +477,7 @@
 
 - (YPMenuControllerArrowDirection)getRealArrowDirection {
     if (self.styleConfig.arrowDirection == YPMenuControllerArrowDefault) {
-        CGFloat barY = CGRectGetMinY(self.transformRect) - self.styleConfig.barHeight;
+        CGFloat barY = CGRectGetMinY(self.transformRect) - kBarHeight;
         if (barY < self.styleConfig.topLimitMargin) {
             return YPMenuControllerArrowUp;
         }else{
