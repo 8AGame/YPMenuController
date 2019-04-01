@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) YPMenuStyleConfig *styleConfig;
 /**
  Menu items.
+ `YPMenuItem` object can display when `targetView` call `canPerformAction:withSender:` method with `action` param to return YES.
  */
 @property(nonatomic, copy) NSArray<YPMenuItem *> *menuItems;
 

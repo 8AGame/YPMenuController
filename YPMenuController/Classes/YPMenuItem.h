@@ -31,9 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCustomView:(UIView *)customView NS_DESIGNATED_INITIALIZER;
 
 /**
- `action` can be performed need to satisfy either
- `targetView` call `respondsToSelector:` method returns YES or
- `targetView` call `canPerformAction:withSender:` method returns YES.
+ `action` can only be performed when `targetView` call `canPerformAction:withSender:` method to return YES.
  */
 @property (nonatomic, assign, nullable, readonly) SEL action;
 
