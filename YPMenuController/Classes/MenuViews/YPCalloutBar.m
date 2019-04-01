@@ -23,7 +23,7 @@
 #define kSpacingBetweenTitleAndImage        5
 
 #define kBarHeight \
-((self.styleConfig.barHeight) + (kContentTowardTargetViewMargin) + (kContentTowardRearMargin))
+((self.styleConfig.barContentHeight) + (kContentTowardTargetViewMargin) + (kContentTowardRearMargin))
 
 #define kBarMaxWidth  \
 ((CGRectGetWidth([UIScreen mainScreen].bounds))-(kBarMarginLeft)*2)
@@ -236,13 +236,13 @@
             [menuBtn setImage:menuItem.image forState:UIControlStateNormal];
     }
     CGFloat maxContent = kBarMaxWidth - kSkipBtnWidth * 2;
-    CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, self.styleConfig.barHeight)];
+    CGSize size = [menuBtn sizeThatFits:CGSizeMake(maxContent, self.styleConfig.barContentHeight)];
     CGFloat btnWidth = size.width;
     if (btnWidth > maxContent) {
         btnWidth = maxContent;
         menuBtn.clipsToBounds = YES;
     }
-    menuBtn.frame = CGRectMake(0, 0, btnWidth, self.styleConfig.barHeight);
+    menuBtn.frame = CGRectMake(0, 0, btnWidth, self.styleConfig.barContentHeight);
     switch (self.styleConfig.menuType) {
         case YPMenuControllerImageOnly:
             
@@ -294,7 +294,7 @@
 
 - (UIView *)lineViewWithXValue:(CGFloat)xValue {
     CGFloat contentMarginTop = [self getBarContentMarginTop];
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, contentMarginTop, 1, self.styleConfig.barHeight)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(xValue, contentMarginTop, 1, self.styleConfig.barContentHeight)];
     lineView.backgroundColor = [self.styleConfig.separatorLineColor colorWithAlphaComponent:0.8];
     return lineView;
 }
@@ -392,7 +392,7 @@
 
     UIButton *skipButton = [UIButton buttonWithType:UIButtonTypeCustom];
     skipButton.backgroundColor = [UIColor clearColor];
-    skipButton.frame = CGRectMake(0, 0, kSkipBtnWidth, self.styleConfig.barHeight);
+    skipButton.frame = CGRectMake(0, 0, kSkipBtnWidth, self.styleConfig.barContentHeight);
     skipButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     [skipButton setImage:triangleImage forState:UIControlStateNormal];
     SEL sel = isLeft ? @selector(leftSikpAction) : @selector(rightSikpAction);
@@ -420,14 +420,14 @@
     CGFloat triangleEndY = 0;
     if ([self getRealArrowDirection] == YPMenuControllerArrowDown) {
         triangleStartY = kBarHeight - self.styleConfig.contentSpace;
-        triangleEndY = backupY + self.styleConfig.barHeight;
+        triangleEndY = backupY + self.styleConfig.barContentHeight;
         
     }else if([self getRealArrowDirection] == YPMenuControllerArrowUp) {
         triangleStartY = self.styleConfig.contentSpace;
         triangleEndY = backupY;
     }
 
-    CGRect pathRect = CGRectMake(0, backupY, width, self.styleConfig.barHeight);
+    CGRect pathRect = CGRectMake(0, backupY, width, self.styleConfig.barContentHeight);
     _contentRect = pathRect;
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:kBackupLayerCornerRadius];
     //convert `transformRect` which from window to calloutBar view coordinate.

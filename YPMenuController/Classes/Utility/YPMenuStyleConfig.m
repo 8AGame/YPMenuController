@@ -31,8 +31,8 @@
     return self;
 }
 
-- (CGFloat)barHeight {
-    if (!_barHeight) {
+- (CGFloat)barContentHeight {
+    if (!_barContentHeight) {
         if (self.menuType == YPMenuControllerImageTopTitleBottom ||
             self.menuType == YPMenuControllerTitleTopImageBottom) {
             return 56;
@@ -41,7 +41,7 @@
             return 36;
         }
     }
-    return _barHeight;
+    return _barContentHeight;
 }
 
 

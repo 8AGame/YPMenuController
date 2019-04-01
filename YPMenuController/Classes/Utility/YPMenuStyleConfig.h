@@ -27,10 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL autoDismiss;
 /**
- Bar view height.
+ Bar content height.
  The default is automatically calculated based on `menuType`.
  */
-@property (nonatomic, assign) CGFloat barHeight;
+@property (nonatomic, assign) CGFloat barContentHeight;
 /**
  Bar background color.
  The default is red:31 green:31 blue:31 alpha:0.96.

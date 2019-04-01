@@ -100,7 +100,7 @@
 - (IBAction)customStyleAction:(id)sender {
     YPMenuStyleConfig *config = [[YPMenuStyleConfig alloc] init];
     config.menuType = YPMenuControllerCustom;
-    config.barHeight = 34;
+    config.barContentHeight = 34;
     config.barBackgroundColor = [UIColor whiteColor];
     config.separatorLineColor = [UIColor cyanColor];
     config.barDismissDelayInterval = 0.2;
