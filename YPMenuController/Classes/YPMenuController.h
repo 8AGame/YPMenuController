@@ -40,6 +40,19 @@ NS_ASSUME_NONNULL_BEGIN
                  animated:(BOOL)animated;
 
 /**
+ Make menu controller visible.
+ @param targetX      The targetView x axis coordinate.
+ @param menuWindowY  The menuWindow y axis coordinate.
+ @param targetView   The view in which targetRect appears.
+ @param animated     YES if the showing of the menu should be animated, otherwise NO.
+ */
+- (void)menuVisibleInView:(UIView *)targetView
+                  targetX:(CGFloat)targetX
+              menuWindowY:(CGFloat)menuWindowY
+                 animated:(BOOL)animated;
+
+
+/**
  Make menu controller invisible.
  @param animated     YES if the hiding of the menu should be animated, otherwise NO.
  */

@@ -69,6 +69,27 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
 - (void)menuVisibleInView:(UIView *)targetView
                targetRect:(CGRect)targetRect
                  animated:(BOOL)animated {
+    
+    CGRect transformRect = [self.menuWindow convertRect:targetRect fromView:targetView];
+    
+    [self menuVisibleInView:targetView windowRect:transformRect animated:animated];
+}
+
+- (void)menuVisibleInView:(UIView *)targetView
+                  targetX:(CGFloat)targetX
+              menuWindowY:(CGFloat)menuWindowY
+                 animated:(BOOL)animated {
+    
+    CGPoint p = [self.menuWindow convertPoint:CGPointMake(targetX, 0) fromView:targetView];
+    CGRect transformRect = CGRectMake(p.x, menuWindowY, 0, 0);
+    
+    [self menuVisibleInView:targetView windowRect:transformRect animated:animated];
+}
+
+- (void)menuVisibleInView:(UIView *)targetView
+               windowRect:(CGRect)windowRect
+                 animated:(BOOL)animated {
+    
     //Conditions that bar cannot be displayed.
     if (self->_menuVisible || ![targetView isKindOfClass:UIView.class]) return;
     
@@ -80,10 +101,12 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
     }
     if (canVisibleItems.count < 1) return;
     
-    CGRect transformRect = [self.menuWindow convertRect:targetRect fromView:targetView];
-    YPCalloutBar *callBar = [YPCalloutBar createCallBarWithMenuItems:canVisibleItems transformRect:transformRect styleConfig:self.styleConfig];
+    YPCalloutBar *callBar = [YPCalloutBar createCallBarWithMenuItems:canVisibleItems transformRect:windowRect styleConfig:self.styleConfig];
+
     if (callBar.frame.origin.y < self.styleConfig.topLimitMargin) {
         //Bar cannot be displayed when less than `topLimitMargin`.
+        return;
+    }else if (CGRectGetMaxY(callBar.frame) >= CGRectGetHeight([UIScreen mainScreen].bounds)){
         return;
     }
     
@@ -107,6 +130,7 @@ NSNotificationName const YPMenuControllerDidHideMenuNotification = @"YPMenuContr
         }];
     }
 }
+
 - (void)setCalloutBar:(YPCalloutBar *)calloutBar {
     if (_calloutBar && _calloutBar.superview) {
         [[NSNotificationCenter defaultCenter] postNotificationName:YPMenuControllerDidHideMenuNotification object:self];
